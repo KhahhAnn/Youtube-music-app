@@ -3,19 +3,24 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 import React from 'react';
 import YoutubeMusicLogo from "../logo/logMusic";
 
 function LoginScreen() {
+   const navigation = useNavigation();
+   async function changePage() {
+      navigation.navigate('Main')
+   }
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
          <SafeAreaView style={{ flex: 1 }}>
             <View style={{ height: 80 }} />
             <YoutubeMusicLogo />
-            {/* <AntDesign style={{ textAlign: "center" }} name="youtube" size={80} color="red" /> */}
             <Text style={{ color: "white", fontSize: 40, fontWeight: "bold", textAlign: "center", marginTop: 40, }}>Millions of songs free on youtube music</Text>
             <View style={{ height: 80 }} />
             <Pressable
+               onPress={changePage}
                style={{
                   backgroundColor: "#1DB954",
                   padding: 10,
@@ -28,6 +33,7 @@ function LoginScreen() {
                <Text>Sign in with youtuber account</Text>
             </Pressable>
             <Pressable 
+               onPress={changePage}
                style= {{
                   backgroundColor: "#131624",
                   padding: 10,
@@ -48,6 +54,7 @@ function LoginScreen() {
                <Text style ={{fontWeight:500, color: "white", textAlign: "center", flex: 1}}>Continue with phone number</Text>
             </Pressable>
             <Pressable 
+               onPress={changePage}
                style= {{
                   backgroundColor: "#131624",
                   padding: 10,
@@ -68,6 +75,7 @@ function LoginScreen() {
                <Text style ={{fontWeight:500, color: "white", textAlign: "center", flex: 1}}>Continue with google</Text>
             </Pressable>
             <Pressable 
+               onPress={changePage}
                style= {{
                   backgroundColor: "#131624",
                   padding: 10,
