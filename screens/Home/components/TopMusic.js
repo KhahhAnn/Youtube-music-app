@@ -1,68 +1,77 @@
 import { Feather } from '@expo/vector-icons';
 import React from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import YoutubeMusicLogo from "../../../logo/logoMusic";
+import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
-const listStartSong = [
+const TopMusicList = [
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
       name: "Không muốn yêu lại càng say đắm",
-      auth: "Mr.Siro"
+      auth: "Mr.Siro",
+      chart: <Entypo name="chevron-thin-up" size={20} color="#01F702" />
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
       name: "Sinh nhật của mùa thu",
-      auth: "Nguyenn"
+      auth: "Nguyenn",
+      chart: <Entypo name="chevron-thin-up" size={20} color="#01F702" />
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
       name: "Nếu biết đó là lần cuối",
-      auth: "Đức Trường & BMZ"
+      auth: "Đức Trường & BMZ",
+      chart: <Entypo name="chevron-thin-down" size={20} color="#FD2D2B" />
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
       name: "Chuyện đôi ta hợp tan",
-      auth: "WIND"
+      auth: "WIND",
+      chart: <Entypo name="chevron-thin-down" size={20} color="#FD2D2B" />
+
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
       name: "Chuyện đôi ta hợp tan",
-      auth: "WIND"
+      auth: "WIND",
+      chart: <Ionicons name="remove-outline" size={20} color="black"/>
    },
 ]
-const StartSong = () => {
+const TopMusic = () => {
    return (
       <ScrollView>
          <View style={styles.headerBodyContainer}>
-            <Image style={styles.icon} source={{ uri: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg" }} />
-            <View style={{marginTop: 5}}>
-               <Text style={styles.headerBodyText}>MUSIC TO GET YOU STARTED</Text>
-               <Text style={styles.headerBodyTextBold}>Welcome Khánh An</Text>
+            <View style={{ marginTop: 5 }}>
+               <Text style={styles.headerBodyTextBold}>Top music videos</Text>
             </View>
             <View style={styles.buttonContainer}>
-               <Text>Phát tất cả</Text>
+               <Text>Xem thêm</Text>
             </View>
          </View>
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.startSongs}>
+            <View style={styles.topMusics}>
                {
-                  listStartSong.map((startSong, index) => (
-                     <View key={index} style={styles.startSong}>
-                        <View style={styles.startSongText}>
+                  TopMusicList.map((topMusic, index) => (
+                     <View key={index} style={styles.topMusic}>
+                        <View style={styles.topMusicText}>
                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                              <Image source={{ uri: startSong.img }} style={styles.startSongImage} />
+                              <View style={styles.change}>
+                                 <Text style={{ fontSize: 26, color: "#eee", marginBottom: 5}}>{index + 1}</Text>
+                                 {topMusic.chart}
+                              </View>
+                              <Image source={{ uri: topMusic.img }} style={styles.topMusicImage} />
                               <View style={{ marginLeft: 10 }}>
                                  <Text style={{
                                     fontSize: 16,
                                     color: "rgba(255,255,255,0.6)"
-                                 }}>{startSong.name}</Text>
+                                 }}>{topMusic.name}</Text>
                                  <Text style={{
                                     fontSize: 16,
                                     color: "rgba(255,255,255,0.7)"
-                                 }}>{startSong.auth}</Text>
+                                 }}>{topMusic.auth}</Text>
                               </View>
                            </View>
-                           <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 40 }} />
+                           <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 20 }} />
                         </View>
                      </View>
                   ))
@@ -85,16 +94,16 @@ const styles = StyleSheet.create({
       color: "rgba(200,200,200,0.9)"
    },
    headerBodyTextBold: {
-      fontSize: 18,
+      fontSize: 22,
       fontWeight: "700",
       color: "white"
    },
-   startSongs: {
+   topMusics: {
       marginTop: 30,
       display: "flex",
       gap: 20
    },
-   startSong: {
+   topMusic: {
       display: "flex",
       flexDirection: "row",
       gap: 10,
@@ -104,11 +113,11 @@ const styles = StyleSheet.create({
       marginLeft: 5
 
    },
-   startSongImage: {
+   topMusicImage: {
       width: 60,
       height: 60,
    },
-   startSongText: {
+   topMusicText: {
       display: "flex",
       flexDirection: "row",
       gap: 10,
@@ -123,16 +132,21 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       width: 100,
       height: 30,
-      marginLeft: 50,
+      marginLeft: 100,
       borderWidth: 1,
       borderColor: "white",
       marginTop: 10
    },
-   icon:{
+   icon: {
       width: 50,
       height: 50,
       borderRadius: 50,
+   },
+   change: {
+      marginRight: 10,
+      alignItems: "center",
+      justifyContent:"center"
    }
 })
 
-export default StartSong;
+export default TopMusic;

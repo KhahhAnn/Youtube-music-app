@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import React from 'react';
-import YoutubeMusicLogo from "../../logo/logMusic";
+import YoutubeMusicLogo from "../../logo/logoMusic";
 
 function LoginScreen() {
    const navigation = useNavigation();

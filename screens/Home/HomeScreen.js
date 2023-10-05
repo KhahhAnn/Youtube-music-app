@@ -1,23 +1,28 @@
-import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { ScrollView, View, Text, StyleSheet } from "react-native";
-import HeaderNav from "./components/HeaderNav";
-import Option from './components/Option';
-import StartSong from './components/StartSong';
-import { AntDesign } from '@expo/vector-icons';
-import Recap from "./components/Recap";
 import CreateRadio from "./components/CreateRadio";
+import HeaderNav from "./components/HeaderNav";
+import HitToday from "./components/HitToday";
+import Option from './components/Option';
+import Recap from "./components/Recap";
+import StartSong from './components/StartSong';
+import RecommendRadio from "./components/RecommendRadio";
+import TopMusic from "./components/TopMusic";
+import { ScrollView } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 function HomeScreen() {
 
    return (
-      <LinearGradient colors={["#BBD2C5", "#536976", "#292E49"]} style={{ flex: 1, paddingBottom: 60 }}>
+      <LinearGradient colors={["#211f2f", "#918ca9"]} style={{ flex: 1, paddingBottom: 60 }}>
          <ScrollView style={{ marginTop: 50, marginRight: 5, marginLeft: 5 }}>
             <HeaderNav />
             <Option />
+            <HitToday />
+            <RecommendRadio />
             <StartSong />
             <Recap />
             <CreateRadio />
+            <TopMusic />
          </ScrollView>
       </LinearGradient>
    );
