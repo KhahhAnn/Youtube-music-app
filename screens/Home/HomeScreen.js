@@ -9,6 +9,7 @@ import RecommendRadio from "./components/RecommendRadio";
 import TopMusic from "./components/TopMusic";
 import { ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import TrendingPlaylists from "./components/TrendingPlaylists";
 
 function HomeScreen() {
 
@@ -23,6 +24,7 @@ function HomeScreen() {
             <Recap />
             <CreateRadio />
             <TopMusic />
+            <TrendingPlaylists />
          </ScrollView>
       </LinearGradient>
    );

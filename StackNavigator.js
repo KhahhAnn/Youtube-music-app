@@ -7,6 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import ExploreScreen from "./screens/Explore/ExploreScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -41,6 +42,17 @@ function BottomTabs() {
             }}
          />
          <Tab.Screen
+            name="Explore"
+            component={ExploreScreen}
+            options={{
+               tabBarLabel: "Profile",
+               headerShown: false,
+               tabBarLabelStyle: { color: "white" },
+               tabBarIcon: ({ focused }) =>
+                  focused ? (<Ionicons name="ios-compass-sharp" size={28} color="white" />) : (<Ionicons name="ios-compass-outline" size={28} color="white" />)
+            }} 
+         />
+         <Tab.Screen
             name="Profile"
             component={ProfileScreen}
             options={{
@@ -61,6 +73,7 @@ function Navigation() {
          <Stack.Navigator>
             <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
             <Stack.Screen name="Main" component={BottomTabs} options={{headerShown: false}}/>
+            <Stack.Screen name="Explore" component={BottomTabs} options={{headerShown: false}}/>
          </Stack.Navigator>
       </NavigationContainer>
    );
