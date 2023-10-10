@@ -46,30 +46,36 @@ const moodList = [
       text: "Mandopop & Cantopop 11",
       color: "	#5F9EA0"
    },
+   {
+      text: "Mandopop & Cantopop 12",
+      color: "	#5F9EA0"
+   },
 ]
 const Body = () => {
    return (
       <View>
-         <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 30, marginTop: 40, marginLeft: 5 }}>Moods & gennres</Text>
+         <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 30, marginTop: 40, marginLeft: 5 }}>Moods & genres</Text>
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {moodList.map((mood, index) => (
-               <View key={index} style={{ ...styles.row, borderTopColor: mood.color}}>
-                  <View style={{ ...styles.item, borderLeftColor: mood.color }}>
-                     <Text style={styles.itemText}>{mood.text}</Text>
-                  </View>
-                  <View style={{ ...styles.item, borderLeftColor: mood.color }}>
-                     <Text style={styles.itemText}>{mood.text}</Text>
-                  </View>
-                  <View style={{ ...styles.item, borderLeftColor: mood.color }}>
-                     <Text style={styles.itemText}>{mood.text}</Text>
-                  </View>
+               <View key={index} style={{ ...styles.row, borderTopColor: mood.color }}>
+                  {Array.from({ length: 3 }).map((_, i) => {
+                     const newIndex = index * 3 + i;
+                     if (newIndex < moodList.length) {
+                        return (
+                           <View key={i} style={{ ...styles.item, borderLeftColor: moodList[newIndex].color }}>
+                              <Text style={styles.itemText}>{moodList[newIndex].text}</Text>
+                           </View>
+                        );
+                     }
+                     return null;
+                  })}
                </View>
-               
             ))}
          </ScrollView>
       </View>
    );
 }
+
 
 const styles = StyleSheet.create({
    container: {

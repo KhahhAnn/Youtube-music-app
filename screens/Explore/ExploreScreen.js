@@ -4,6 +4,7 @@ import { ScrollView } from "react-native";
 import HeaderNav from '../Home/components/HeaderNav';
 import Header from './components/header';
 import Body from './components/body';
+import Footer from './components/footer';
 
 const ExploreScreen = () => {
    return(
@@ -12,6 +13,7 @@ const ExploreScreen = () => {
             <HeaderNav />
             <Header />
             <Body />
+            <Footer />
          </ScrollView>
       </LinearGradient>
    );
