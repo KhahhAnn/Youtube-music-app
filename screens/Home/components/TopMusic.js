@@ -34,7 +34,7 @@ const TopMusicList = [
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
       name: "Chuyện đôi ta hợp tan",
       auth: "WIND",
-      chart: <Ionicons name="remove-outline" size={20} color="black"/>
+      chart: <Ionicons name="remove-outline" size={20} color="black" />
    },
 ]
 const TopMusic = () => {
@@ -56,7 +56,7 @@ const TopMusic = () => {
                         <View style={styles.topMusicText}>
                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                               <View style={styles.change}>
-                                 <Text style={{ fontSize: 26, color: "#eee", marginBottom: 5}}>{index + 1}</Text>
+                                 <Text style={{ fontSize: 26, color: "#eee", marginBottom: 5 }}>{index + 1}</Text>
                                  {topMusic.chart}
                               </View>
                               <Image source={{ uri: topMusic.img }} style={styles.topMusicImage} />
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
    change: {
       marginRight: 10,
       alignItems: "center",
-      justifyContent:"center"
+      justifyContent: "center"
    }
 })
 

@@ -29,13 +29,88 @@ const listStartSong = [
       name: "Chuyện đôi ta hợp tan",
       auth: "WIND"
    },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND"
+   },
 ]
 const StartSong = () => {
    return (
       <ScrollView>
          <View style={styles.headerBodyContainer}>
             <Image style={styles.icon} source={{ uri: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg" }} />
-            <View style={{marginTop: 5}}>
+            <View style={{ marginTop: 5 }}>
                <Text style={styles.headerBodyText}>MUSIC TO GET YOU STARTED</Text>
                <Text style={styles.headerBodyTextBold}>Welcome Khánh An</Text>
             </View>
@@ -45,28 +120,28 @@ const StartSong = () => {
          </View>
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.startSongs}>
-               {
-                  listStartSong.map((startSong, index) => (
-                     <View key={index} style={styles.startSong}>
-                        <View style={styles.startSongText}>
-                           <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                              <Image source={{ uri: startSong.img }} style={styles.startSongImage} />
-                              <View style={{ marginLeft: 10 }}>
-                                 <Text style={{
-                                    fontSize: 16,
-                                    color: "rgba(255,255,255,0.6)"
-                                 }}>{startSong.name}</Text>
-                                 <Text style={{
-                                    fontSize: 16,
-                                    color: "rgba(255,255,255,0.7)"
-                                 }}>{startSong.auth}</Text>
+               {listStartSong.map((startSong, index) => (
+                  <View key={index} style={styles.startSong}>
+                     {Array.from({ length: 5 }).map((_, i) => {
+                        const newIndex = index * 5 + i;
+                        if (newIndex < listStartSong.length) {
+                           return (
+                              <View style={styles.startSongText} key={newIndex}>
+                                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                                    <Image source={{ uri: listStartSong[newIndex].img }} style={styles.startSongImage} />
+                                    <View style={{ marginLeft: 10, width: 250 }}>
+                                       <Text style={{ fontSize: 16, color: "#fff" }}>{listStartSong[newIndex].name}</Text>
+                                       <Text style={{ fontSize: 16, color: "rgba(255,255,255,0.7)" }}>{listStartSong[newIndex].auth}</Text>
+                                    </View>
+                                 </View>
+                                 <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 40 }} />
                               </View>
-                           </View>
-                           <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 40 }} />
-                        </View>
-                     </View>
-                  ))
-               }
+                           );
+                        }
+                        return null;
+                     })}
+                  </View>
+               ))}
             </View>
          </ScrollView>
       </ScrollView>
@@ -90,19 +165,19 @@ const styles = StyleSheet.create({
       color: "white"
    },
    startSongs: {
+      flex: 1,
+      justifyContent:"space-between",
       marginTop: 30,
       display: "flex",
-      gap: 20
+      paddingHorizontal: 5,
+      flexWrap: "nowrap",
+      paddingHorizontal: 5,
    },
    startSong: {
       display: "flex",
       flexDirection: "row",
-      gap: 10,
-      textAlign: "center",
       justifyContent: "space-between",
-      alignSelf: "stretch",
-      marginLeft: 5
-
+      marginLeft: 5,
    },
    startSongImage: {
       width: 60,
@@ -114,7 +189,8 @@ const styles = StyleSheet.create({
       gap: 10,
       alignItems: "center",
       flex: 1,
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      marginBottom: 20
    },
    buttonContainer: {
       backgroundColor: "rgba(255, 255, 255, 0.2)",
@@ -128,7 +204,7 @@ const styles = StyleSheet.create({
       borderColor: "white",
       marginTop: 10
    },
-   icon:{
+   icon: {
       width: 50,
       height: 50,
       borderRadius: 50,
