@@ -1,7 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./screens/Home/HomeScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import LoginScreen from "./screens/Login/LoginScreen";
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,8 +9,11 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import ExploreScreen from "./screens/Explore/ExploreScreen";
 import Upgrade from "./screens/Upgrade/Upgrade";
-
-
+import ProfileScreen from './screens/Account/ProfileScreen'
+import LoginScreen from "./screens/Login/LoginScreen";
+import Library from "./screens/Library/Library";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import LibraryScreen from "./screens/Library/Library";
 const Tab = createBottomTabNavigator();
 
 function BottomTabs() {
@@ -56,6 +57,17 @@ function BottomTabs() {
             }}
          />
          <Tab.Screen
+            name="Library"
+            component={LibraryScreen}
+            options={{
+               tabBarLabel: "Library",
+               headerShown: false,
+               tabBarLabelStyle: { color: "white" },
+               tabBarIcon: ({ focused }) =>
+                  focused ?  (<MaterialCommunityIcons name="music-box-multiple" size={24} color="white" />) : (<MaterialCommunityIcons name="music-box-multiple-outline" size={24} color="white" />)
+            }}
+         />
+         <Tab.Screen
             name="Upgrade"
             component={Upgrade}
             options={{
@@ -77,6 +89,7 @@ function BottomTabs() {
                   focused ? (<Ionicons name="person" size={24} color="white" />) : (<Ionicons name="person-outline" size={24} color="white" />)
             }}
          />
+         
       </Tab.Navigator>
    );
 }
@@ -89,6 +102,8 @@ function Navigation() {
             <Stack.Screen name="Main" component={BottomTabs} options={{ headerShown: false }} />
             <Stack.Screen name="Explore" component={BottomTabs} options={{ headerShown: false }} />
             <Stack.Screen name="Upgrade" component={BottomTabs} options={{ headerShown: false }} />
+            <Stack.Screen name="Profile" component={BottomTabs} options={{ headerShown: false }} />
+            <Stack.Screen name="Library" component={BottomTabs} options={{ headerShown: false }} />
          </Stack.Navigator>
       </NavigationContainer>
    );

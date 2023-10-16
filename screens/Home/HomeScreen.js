@@ -11,7 +11,7 @@ import { ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import TrendingPlaylists from "./components/TrendingPlaylists";
 
-function HomeScreen() {
+const HomeScreen = () => {
 
    return (
       <LinearGradient colors={["#211f2f", "#918ca9"]} style={{ flex: 1, paddingBottom: 60 }}>
