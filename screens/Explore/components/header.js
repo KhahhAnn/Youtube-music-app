@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
    itemContainer: {
       display: 'flex',
       flexDirection:"column",
-      backgroundColor: "rgba(0,0,0,0.7)",
+      backgroundColor: "rgba(100,100,100,0.7)",
       width: 120,
       height: 100,
       justifyContent: "space-between",

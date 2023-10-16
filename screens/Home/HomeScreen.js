@@ -14,7 +14,7 @@ import TrendingPlaylists from "./components/TrendingPlaylists";
 const HomeScreen = () => {
 
    return (
-      <LinearGradient colors={["#211f2f", "#918ca9"]} style={{ flex: 1, paddingBottom: 60 }}>
+      <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1, paddingBottom: 60 }}>
          <ScrollView style={{ marginTop: 50, marginRight: 5, marginLeft: 5 }}>
             <HeaderNav />
             <Option />

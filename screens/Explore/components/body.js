@@ -8,7 +8,7 @@ const moodList = [
    },
    {
       text: "Mandopop & Cantopop 2",
-      color: "	#FF1493"
+      color: "#E6E6FA"
    },
    {
       text: "Mandopop & Cantopop 3",
@@ -24,7 +24,7 @@ const moodList = [
    },
    {
       text: "Mandopop & Cantopop 6",
-      color: "	#8B0000"
+      color: "#E6E6FA"
    },
    {
       text: "Mandopop & Cantopop 7",
@@ -44,11 +44,11 @@ const moodList = [
    },
    {
       text: "Mandopop & Cantopop 11",
-      color: "	#5F9EA0"
+      color: "#5F9EA0"
    },
    {
       text: "Mandopop & Cantopop 12",
-      color: "	#5F9EA0"
+      color: "#5F9EA0"
    },
 ]
 const Body = () => {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
    },
    item: {
       padding: 10,
-      backgroundColor: "rgba(0,0,0,0.5)",
+      backgroundColor: "rgba(100,100,100,0.7)",
       borderLeftWidth: 8,
       borderRadius: 8,
       marginRight: 15,

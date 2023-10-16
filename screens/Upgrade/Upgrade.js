@@ -6,7 +6,7 @@ import HeaderNav from '../Home/components/HeaderNav';
 
 const Upgrade = () => {
    return (
-      <LinearGradient colors={["#000", "#111"]} style={{ flex: 1 }}>
+      <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
          <ScrollView style={{ marginTop: 50 }}>
             <View style={{ marginRight: 5, marginLeft: 5 }}>
                <HeaderNav />

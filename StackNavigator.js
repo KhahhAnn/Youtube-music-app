@@ -49,7 +49,7 @@ function BottomTabs() {
             name="Explore"
             component={ExploreScreen}
             options={{
-               tabBarLabel: "Profile",
+               tabBarLabel: "Explore",
                headerShown: false,
                tabBarLabelStyle: { color: "white" },
                tabBarIcon: ({ focused }) =>
