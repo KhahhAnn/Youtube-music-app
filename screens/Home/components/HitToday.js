@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 
 import { AntDesign } from '@expo/vector-icons';
@@ -37,16 +37,22 @@ const HitToday = () => {
             </View>
             {
                hits.map((hit, index) => (
-                  <View key={index} style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 10 }}>
+                  <TouchableOpacity key={index} style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 10 }}>
                      <Image source={{ uri: hit.img }} style={{ width: 50, height: 50 }} />
-                     <Text style={{fontWeight:"500"}}>{hit.name} {hit.auth}</Text>
-                  </View>
+                     <Text style={{ fontWeight: "500" }}>{hit.name} {hit.auth}</Text>
+                  </TouchableOpacity>
                ))
             }
             <View style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 30 }}>
-               <AntDesign name="caretright" size={16} color="black" style={{...styles.icon, backgroundColor: "rgba(160,160,160,0.9)", color:"white"}}/>
-               <Feather name="radio" size={16} color="black" style={styles.icon}/>
-               <Entypo name="add-to-list" size={16} color="black" style={styles.icon}/>
+               <TouchableOpacity>
+                  <AntDesign name="caretright" size={16} color="black" style={{ ...styles.icon, backgroundColor: "rgba(160,160,160,0.9)", color: "white" }} />
+               </TouchableOpacity>
+               <TouchableOpacity>
+                  <Feather name="radio" size={16} color="black" style={styles.icon} />
+               </TouchableOpacity>
+               <TouchableOpacity>
+                  <Entypo name="add-to-list" size={16} color="black" style={styles.icon} />
+               </TouchableOpacity>
             </View>
          </LinearGradient>
       </ScrollView>
@@ -67,24 +73,24 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       gap: 20,
       marginBottom: 40,
-      alignItems:"center"
+      alignItems: "center"
    },
    text: {
-      fontWeight:"bold",
+      fontWeight: "bold",
       fontSize: 19,
-      marginBottom:5
+      marginBottom: 5
    },
    iconPlay: {
-      backgroundColor:"rgba(255,255,255,0.5)"
+      backgroundColor: "rgba(255,255,255,0.5)"
    },
    icon: {
-      color:"#ccc",
+      color: "#ccc",
       padding: 10,
       borderRadius: 50,
       backgroundColor: "rgba(0,0,0,0.5)",
       borderWidth: 0.5,
       borderColor: "#ccc",
-      textAlign:"center",
+      textAlign: "center",
       alignItems: "center"
    }
 })

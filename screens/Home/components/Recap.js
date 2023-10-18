@@ -1,6 +1,6 @@
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const recapList = [
    {
@@ -33,19 +33,19 @@ const Recap = () => {
                <AntDesign name="banckward" size={24} color="black" style={styles.icon} />
                <Text style={styles.recapText}>Recap</Text>
             </View>
-            <View>
+            <TouchableOpacity>
                <Text style={styles.moreText}>Xem Thêm</Text>
-            </View>
+            </TouchableOpacity>
          </View>
          <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.recapListContainer}>
                { 
                   recapList.map((recap, index) => (
-                     <View key={index} style={{display:"flex", gap: 5}} >
+                     <TouchableOpacity key={index} style={{display:"flex", gap: 5}} >
                         <Image source={{ uri: recap.img }} style={styles.recapImg} />
                         <Text style={{fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180}}>{recap.name}</Text>
                         <Text style={{fontSize: 14, color: "#ccc", maxWidth: 180}}>{recap.desc}</Text>
-                     </View>
+                     </TouchableOpacity>
                   ))
                }
             </View>

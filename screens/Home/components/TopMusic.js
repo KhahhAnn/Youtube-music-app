@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -54,7 +54,7 @@ const TopMusic = () => {
                   TopMusicList.map((topMusic, index) => (
                      <View key={index} style={styles.topMusic}>
                         <View style={styles.topMusicText}>
-                           <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                           <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                               <View style={styles.change}>
                                  <Text style={{ fontSize: 26, color: "#eee", marginBottom: 5 }}>{index + 1}</Text>
                                  {topMusic.chart}
@@ -70,7 +70,7 @@ const TopMusic = () => {
                                     color: "rgba(255,255,255,0.7)"
                                  }}>{topMusic.auth}</Text>
                               </View>
-                           </View>
+                           </TouchableOpacity>
                            <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 20 }} />
                         </View>
                      </View>

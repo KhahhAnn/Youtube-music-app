@@ -9,7 +9,7 @@ import { Feather } from '@expo/vector-icons';
 const ProfileScreen = () => {
    return (
       <LinearGradient colors={["#000", "#001"]} style={{ flex: 1, paddingBottom: 60 }}>
-         <ScrollView style={{ marginTop: 50}}>
+         <ScrollView style={{ marginTop: 30}}>
             <View style={{ display: 'flex', flexDirection: "row", alignItems: "center", gap: 10, paddingLeft: 20 }}>
                <Image source={{ uri: "https://scontent.fhan1-1.fna.fbcdn.net/v/t39.30808-6/312646293_1544703666027061_1162130465255796089_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=JuI871deAAYAX-z3wPt&_nc_ht=scontent.fhan1-1.fna&oh=00_AfCApp9L-bGz1Fh6nGt6gA4My0QmyxVI8As1AoJ13fnJRQ&oe=652CB06C" }} style={{ height: 50, width: 50, borderRadius: 50 }} />
                <View style={{ flex: 1 }}>

@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import YoutubeMusicLogo from "../../../logo/logoMusic";
 
 const listStartSong = [
@@ -114,9 +114,9 @@ const StartSong = () => {
                <Text style={styles.headerBodyText}>MUSIC TO GET YOU STARTED</Text>
                <Text style={styles.headerBodyTextBold}>Welcome Khánh An</Text>
             </View>
-            <View style={styles.buttonContainer}>
-               <Text>Phát tất cả</Text>
-            </View>
+            <TouchableOpacity style={styles.buttonContainer}>
+               <Text style={{color: "#fff"}}>Play all</Text>
+            </TouchableOpacity>
          </View>
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.startSongs}>
@@ -127,13 +127,13 @@ const StartSong = () => {
                         if (newIndex < listStartSong.length) {
                            return (
                               <View style={styles.startSongText} key={newIndex}>
-                                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                                 <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
                                     <Image source={{ uri: listStartSong[newIndex].img }} style={styles.startSongImage} />
                                     <View style={{ marginLeft: 10, width: 250 }}>
                                        <Text style={{ fontSize: 16, color: "#fff" }}>{listStartSong[newIndex].name}</Text>
                                        <Text style={{ fontSize: 16, color: "rgba(255,255,255,0.7)" }}>{listStartSong[newIndex].auth}</Text>
                                     </View>
-                                 </View>
+                                 </TouchableOpacity>
                                  <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 40 }} />
                               </View>
                            );

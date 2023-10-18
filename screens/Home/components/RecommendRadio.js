@@ -1,6 +1,6 @@
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const recommendList = [
    {
@@ -37,12 +37,12 @@ const RecommendRadio = () => {
             <View style={styles.RecommendedListContainer}>
                { 
                   recommendList.map((Recommended, index) => (
-                     <View key={index} style={{display:"flex", gap: 5}} >
+                     <TouchableOpacity key={index} style={{display:"flex", gap: 5}} >
                         <AntDesign name="playcircleo" size={16} color="#918ca9" style={styles.icon}/>
                         <Image source={{ uri: Recommended.img }} style={styles.RecommendedImg} />
                         <Text style={{fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180}}>{Recommended.name}</Text>
                         <Text style={{fontSize: 14, color: "#ccc", maxWidth: 180}}>{Recommended.desc}</Text>
-                     </View>
+                     </TouchableOpacity>
                   ))
                }
             </View>

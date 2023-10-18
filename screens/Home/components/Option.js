@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const options = [
    { content: "Relax" },
    { content: "Energize" },
@@ -14,9 +14,9 @@ const Option = () => {
          <View style={{ marginTop: 30, display: "flex", flexDirection: "row", justifyContent: "center" }}>
             {
                options.map((option, index) => (
-                  <View key={index} style={styles.optionContainer}>
+                  <TouchableOpacity key={index} style={styles.optionContainer}>
                      <Text style={styles.optionText}>{option.content}</Text>
-                  </View>
+                  </TouchableOpacity>
                ))
             }
          </View>

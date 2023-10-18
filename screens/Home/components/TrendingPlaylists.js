@@ -1,6 +1,6 @@
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const trendingList = [
    {
@@ -42,12 +42,12 @@ const TrendingPlaylists = () => {
             <View style={styles.trendingListContainer}>
                {
                   trendingList.map((trending, index) => (
-                     <View key={index} style={{ display: "flex", gap: 5 }} >
+                     <TouchableOpacity key={index} style={{ display: "flex", gap: 5 }} >
                         <Image source={{ uri: trending.img }} style={styles.img} />
                         <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{trending.name}</Text>
                         <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{trending.desc}</Text>
                         <Image source={{ uri: trending.icon }} style={styles.icon} />
-                     </View>
+                     </TouchableOpacity>
                   ))
                }
             </View>

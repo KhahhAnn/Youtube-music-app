@@ -1,14 +1,14 @@
 import { Entypo } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import HeaderNav from '../Home/components/HeaderNav';
 
 const Upgrade = () => {
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
-         <ScrollView style={{ marginTop: 50 }}>
-            <View style={{ marginRight: 5, marginLeft: 5 }}>
+         <SafeAreaView style={{marginTop:10, marginRight: 10, marginLeft: 10 }}>
+            <View>
                <HeaderNav />
             </View>
             <View style={styles.container} >
@@ -33,7 +33,7 @@ const Upgrade = () => {
                   <Text style={{ color: "#483D8B", fontSize: 16 }}>Restrictions apply.</Text>
                </View>
             </View>
-         </ScrollView>
+         </SafeAreaView>
       </LinearGradient>
    );
 }
