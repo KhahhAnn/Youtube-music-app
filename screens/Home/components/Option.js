@@ -9,6 +9,7 @@ const options = [
 ]
 
 const Option = () => {
+   
    return (
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ maxWidth: 500 }}>
          <View style={{ marginTop: 30, display: "flex", flexDirection: "row", justifyContent: "center" }}>

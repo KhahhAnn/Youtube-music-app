@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, Touchable, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
@@ -11,54 +11,56 @@ const Content = () => {
                <Text style={styles.primText}>Recent activity</Text>
                <AntDesign name="down" size={18} color="white" />
             </View>
-            <AntDesign name="appstore-o" size={24} color="white" />
+            <TouchableOpacity>
+               <AntDesign name="appstore-o" size={24} color="white" />
+            </TouchableOpacity>
          </View>
          <View style={styles.mt20}>
             <View style={styles.flexRow}>
-               <View style={styles.flexRow}>
+               <TouchableOpacity style={styles.flexRow}>
                   <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
                   <View style={styles.flexCol}>
                      <Text style={styles.primText}>Mr Siro</Text>
                      <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
                   </View>
-               </View>
+               </TouchableOpacity>
                <Feather name="more-vertical" size={24} color="white" />
             </View>
             <View style={styles.flexRow}>
-               <View style={styles.flexRow}>
+               <TouchableOpacity style={styles.flexRow}>
                   <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
                   <View style={styles.flexCol}>
                      <Text style={styles.primText}>Mr Siro</Text>
                      <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
                   </View>
-               </View>
+               </TouchableOpacity>
                <Feather name="more-vertical" size={24} color="white" />
             </View>
             <View style={styles.flexRow}>
-               <View style={styles.flexRow}>
+               <TouchableOpacity style={styles.flexRow}>
                   <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
                   <View style={styles.flexCol}>
                      <Text style={styles.primText}>Mr Siro</Text>
                      <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
                   </View>
-               </View>
+               </TouchableOpacity>
                <Feather name="more-vertical" size={24} color="white" />
             </View>
             <View style={styles.flexRow}>
-               <View style={styles.flexRow}>
+               <TouchableOpacity style={styles.flexRow}>
                   <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
                   <View style={styles.flexCol}>
                      <Text style={styles.primText}>Mr Siro</Text>
                      <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
                   </View>
-               </View>
+               </TouchableOpacity>
                <Feather name="more-vertical" size={24} color="white" />
             </View>
          </View>
-         <View style={{display:'flex', flexDirection:"row", alignItems:"center", backgroundColor: "white", maxWidth: 150, padding: 10, borderRadius: 20, left: 240}}>
+         <TouchableOpacity style={{ display: 'flex', flexDirection: "row", alignItems: "center", backgroundColor: "white", maxWidth: 150, padding: 10, borderRadius: 20, left: 230 }}>
             <AntDesign name="plus" size={20} color="black" />
-            <Text style={{color: "black", fontSize: 18}}>New playlists</Text>
-         </View>
+            <Text style={{ color: "black", fontSize: 18 }}>New playlists</Text>
+         </TouchableOpacity>
       </ScrollView>
    );
 }

@@ -1,7 +1,6 @@
 import { Feather } from '@expo/vector-icons';
-import React from "react";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import YoutubeMusicLogo from "../../../logo/logoMusic";
+import React, { useEffect, useState } from "react";
+import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const listStartSong = [
    {
@@ -21,91 +20,113 @@ const listStartSong = [
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 1",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 2",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 3",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 4",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 5",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 6",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 7",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 8",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 9",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 10",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 11",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 12",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 13",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 14",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 15",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 16",
       auth: "WIND"
    },
    {
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Chuyện đôi ta hợp tan",
+      name: "Chuyện đôi ta hợp tan 17",
       auth: "WIND"
    },
 ]
+
 const StartSong = () => {
+   const [startSong, setStartSong] = useState([])
+   useEffect(() => {
+      setStartSong(listStartSong);
+   }, [])
+
+   const render = ({ item }) => {
+      return (
+         <View style={styles.startSong}>
+            <View style={styles.startSongText}>
+               <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                  <Image source={{ uri: item.img }} style={styles.startSongImage} />
+                  <View style={{ marginLeft: 10, width: 240 }}>
+                     <Text style={{ fontSize: 16, color: "#fff" }}>{item.name}</Text>
+                     <Text style={{ fontSize: 16, color: "rgba(255,255,255,0.7)" }}>{item.auth}</Text>
+                  </View>
+               </TouchableOpacity>
+               <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 40 }} />
+            </View>
+         </View>
+      );
+   }
    return (
       <ScrollView>
          <View style={styles.headerBodyContainer}>
@@ -115,33 +136,18 @@ const StartSong = () => {
                <Text style={styles.headerBodyTextBold}>Welcome Khánh An</Text>
             </View>
             <TouchableOpacity style={styles.buttonContainer}>
-               <Text style={{color: "#fff"}}>Play all</Text>
+               <Text style={{ color: "#fff" }}>Play all</Text>
             </TouchableOpacity>
          </View>
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.startSongs}>
-               {listStartSong.map((startSong, index) => (
-                  <View key={index} style={styles.startSong}>
-                     {Array.from({ length: 5 }).map((_, i) => {
-                        const newIndex = index * 5 + i;
-                        if (newIndex < listStartSong.length) {
-                           return (
-                              <View style={styles.startSongText} key={newIndex}>
-                                 <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                                    <Image source={{ uri: listStartSong[newIndex].img }} style={styles.startSongImage} />
-                                    <View style={{ marginLeft: 10, width: 250 }}>
-                                       <Text style={{ fontSize: 16, color: "#fff" }}>{listStartSong[newIndex].name}</Text>
-                                       <Text style={{ fontSize: 16, color: "rgba(255,255,255,0.7)" }}>{listStartSong[newIndex].auth}</Text>
-                                    </View>
-                                 </TouchableOpacity>
-                                 <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 40 }} />
-                              </View>
-                           );
-                        }
-                        return null;
-                     })}
-                  </View>
-               ))}
+               <FlatList
+                  data={startSong}
+                  renderItem={render}
+                  keyExtractor={(item, index) => index.toString()}
+                  numColumns={4}
+                  columnWrapperStyle={{ justifyContent: 'space-between' }}
+               />
             </View>
          </ScrollView>
       </ScrollView>
@@ -165,8 +171,6 @@ const styles = StyleSheet.create({
       color: "white"
    },
    startSongs: {
-      flex: 1,
-      justifyContent:"space-between",
       marginTop: 30,
       display: "flex",
       paddingHorizontal: 5,

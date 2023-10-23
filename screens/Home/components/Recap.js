@@ -1,31 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-
-const recapList = [
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Recap mùa hè năm 2023",
-      desc: "Danh sách phát"
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Recap mùa xuân năm 2023",
-      desc: "Danh sách phát"
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Recap mùa thu năm 2023",
-      desc: "Danh sách phát"
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Recap mùa đông năm 2023",
-      desc: "Danh sách phát"
-   },
-]
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 
 const Recap = () => {
+   const [recap, setRecap] = useState([]);
+   let prevRecap;
+
+   const recapList = async () => {
+      try {
+         const response = await fetch('http://192.168.51.102:8080/albums?isRecap=true');
+         console.log("Response Status:", response.status);
+         const json = await response.json();
+         console.log("Response JSON:", json._embedded.albums);
+         prevRecap = recap;
+         return setRecap(json._embedded.albums);
+      } catch (error) {
+         console.error("Error:", error);
+      }
+   };
+   useEffect(() => {
+      if (recap !== prevRecap) {
+         recapList();
+      }
+   }, [prevRecap]);
+   const render = ({ item }) => {
+      console.log("Rendering item:", item);
+      return (
+         <View style={styles.recapListContainer}>
+            <TouchableOpacity style={{ display: "flex", gap: 5 }} >
+               <Image source={{ uri: item.image }} style={styles.recapImg} />
+               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
+               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>
+            </TouchableOpacity>
+         </View>
+      );
+   }
    return (
       <ScrollView >
          <View style={styles.recapContainer}>
@@ -37,19 +46,15 @@ const Recap = () => {
                <Text style={styles.moreText}>Xem Thêm</Text>
             </TouchableOpacity>
          </View>
-         <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.recapListContainer}>
-               { 
-                  recapList.map((recap, index) => (
-                     <TouchableOpacity key={index} style={{display:"flex", gap: 5}} >
-                        <Image source={{ uri: recap.img }} style={styles.recapImg} />
-                        <Text style={{fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180}}>{recap.name}</Text>
-                        <Text style={{fontSize: 14, color: "#ccc", maxWidth: 180}}>{recap.desc}</Text>
-                     </TouchableOpacity>
-                  ))
-               }
-            </View>
-         </ScrollView>
+         <View>
+            <FlatList
+               data={recap}
+               renderItem={render}
+               keyExtractor={(item, index) => index.toString()}
+               horizontal={true}
+               showsHorizontalScrollIndicator={false}
+            />
+         </View>
       </ScrollView>
    );
 }
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       color: "#ccc",
       alignItems: "center",
-      justifyContent:"center"
+      justifyContent: "center"
    },
    recapText: {
       fontSize: 30,

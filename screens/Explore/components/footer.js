@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 
 const videoList = [
    {
@@ -26,6 +26,22 @@ const videoList = [
 ]
 
 const Footer = () => {
+   const [video, setVideo] = useState([]);
+   useEffect(() => {
+      setVideo(videoList)
+   }, [])
+   const render = ({ item }) => {
+      return (
+         <TouchableOpacity style={styles.videoListContainer}>
+            <View style={{ display: "flex", gap: 5 }} >
+               <AntDesign name="caretright" size={24} color="#918ca9" style={styles.icon} />
+               <Image source={{ uri: item.img }} style={styles.videoImg} />
+               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.name}</Text>
+               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.desc}</Text>
+            </View>
+         </TouchableOpacity>
+      );
+   }
    return (
       <ScrollView >
          <View style={styles.videoContainer}>
@@ -33,20 +49,15 @@ const Footer = () => {
                <Text style={styles.videoText}>New music videos</Text>
             </View>
          </View>
-         <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.videoListContainer}>
-               { 
-                  videoList.map((video, index) => (
-                     <View key={index} style={{display:"flex", gap: 5}} >
-                        <AntDesign name="caretright" size={24} color="#918ca9" style={styles.icon} />
-                        <Image source={{ uri: video.img }} style={styles.videoImg} />
-                        <Text style={{fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180}}>{video.name}</Text>
-                        <Text style={{fontSize: 14, color: "#ccc", maxWidth: 180}}>{video.desc}</Text>
-                     </View>
-                  ))
-               }
-            </View>
-         </ScrollView>
+         <View>
+            <FlatList
+               data={video}
+               renderItem={render}
+               keyExtractor={(item, index) => index.toString()}
+               horizontal={true}
+               showsHorizontalScrollIndicator={false}
+            />
+         </View>
       </ScrollView>
    );
 }

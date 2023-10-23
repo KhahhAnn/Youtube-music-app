@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 
 const recommendList = [
    {
@@ -26,6 +26,22 @@ const recommendList = [
 ]
 
 const RecommendRadio = () => {
+   const [recommend, setRecommend] = useState([]);
+   useEffect(() => {
+      setRecommend(recommendList)
+   }, [])
+   const render = ({ item }) => {
+      return (
+         <View style={styles.RecommendedListContainer}>
+            <TouchableOpacity style={{ display: "flex", gap: 5 }} >
+               <AntDesign name="playcircleo" size={16} color="#918ca9" style={styles.icon} />
+               <Image source={{ uri: item.img }} style={styles.RecommendedImg} />
+               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.name}</Text>
+               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.desc}</Text>
+            </TouchableOpacity>
+         </View>
+      );
+   }
    return (
       <ScrollView >
          <View style={styles.RecommendedContainer}>
@@ -33,20 +49,15 @@ const RecommendRadio = () => {
                <Text style={styles.RecommendedText}>Recommended radios</Text>
             </View>
          </View>
-         <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.RecommendedListContainer}>
-               { 
-                  recommendList.map((Recommended, index) => (
-                     <TouchableOpacity key={index} style={{display:"flex", gap: 5}} >
-                        <AntDesign name="playcircleo" size={16} color="#918ca9" style={styles.icon}/>
-                        <Image source={{ uri: Recommended.img }} style={styles.RecommendedImg} />
-                        <Text style={{fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180}}>{Recommended.name}</Text>
-                        <Text style={{fontSize: 14, color: "#ccc", maxWidth: 180}}>{Recommended.desc}</Text>
-                     </TouchableOpacity>
-                  ))
-               }
-            </View>
-         </ScrollView>
+         <View>
+            <FlatList
+               data={recommend}
+               renderItem={render}
+               keyExtractor={(item, index) => index.toString()}
+               horizontal={true}
+               showsHorizontalScrollIndicator={false}
+            />
+         </View>
       </ScrollView>
    );
 }

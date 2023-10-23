@@ -1,6 +1,7 @@
+
 import { Feather } from '@expo/vector-icons';
-import React from "react";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -34,10 +35,69 @@ const TopMusicList = [
       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
       name: "Chuyện đôi ta hợp tan",
       auth: "WIND",
-      chart: <Ionicons name="remove-outline" size={20} color="black" />
+      chart: <Ionicons name="remove-outline" size={20} color="white" />
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND",
+      chart: <Ionicons name="remove-outline" size={20} color="white" />
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND",
+      chart: <Ionicons name="remove-outline" size={20} color="white" />
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND",
+      chart: <Ionicons name="remove-outline" size={20} color="white" />
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND",
+      chart: <Ionicons name="remove-outline" size={20} color="white" />
+   },
+   {
+      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      name: "Chuyện đôi ta hợp tan",
+      auth: "WIND",
+      chart: <Ionicons name="remove-outline" size={20} color="white" />
    },
 ]
+
+
 const TopMusic = () => {
+   const [topMusicList, setTopMusicList] = useState([])
+
+   useEffect(() => {
+      setTopMusicList(TopMusicList);
+   }, [])
+   const render = ({ item, index }) => {
+      return (
+         <View style={styles.topMusics}>
+            <View style={styles.music}>
+               <View style={styles.topMusicText}>
+                  <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                     <View style={styles.change}>
+                        <Text style={{ fontSize: 20, color: "#eee", marginBottom: 5 }}>{index + 1}</Text>
+                        {item.chart}
+                     </View>
+                     <Image source={{ uri: item.img }} style={styles.topMusicImage} />
+                     <View style={{ marginLeft: 10, width: 230 }}>
+                        <Text style={{ fontSize: 16, color: "rgba(255,255,255,0.6)" }}>{item.name}</Text>
+                        <Text style={{ fontSize: 16, color: "rgba(255,255,255,0.7)" }}>{item.auth}</Text>
+                     </View>
+                  </TouchableOpacity>
+                  <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 20 }} />
+               </View>
+            </View>
+         </View>
+      );
+   }
    return (
       <ScrollView>
          <View style={styles.headerBodyContainer}>
@@ -49,34 +109,13 @@ const TopMusic = () => {
             </View>
          </View>
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.topMusics}>
-               {
-                  TopMusicList.map((topMusic, index) => (
-                     <View key={index} style={styles.topMusic}>
-                        <View style={styles.topMusicText}>
-                           <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                              <View style={styles.change}>
-                                 <Text style={{ fontSize: 26, color: "#eee", marginBottom: 5 }}>{index + 1}</Text>
-                                 {topMusic.chart}
-                              </View>
-                              <Image source={{ uri: topMusic.img }} style={styles.topMusicImage} />
-                              <View style={{ marginLeft: 10 }}>
-                                 <Text style={{
-                                    fontSize: 16,
-                                    color: "rgba(255,255,255,0.6)"
-                                 }}>{topMusic.name}</Text>
-                                 <Text style={{
-                                    fontSize: 16,
-                                    color: "rgba(255,255,255,0.7)"
-                                 }}>{topMusic.auth}</Text>
-                              </View>
-                           </TouchableOpacity>
-                           <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 20 }} />
-                        </View>
-                     </View>
-                  ))
-               }
-            </View>
+            <FlatList
+               data={topMusicList}
+               renderItem={render}
+               numColumns={2}
+               keyExtractor={(item, index) => index.toString()}
+               columnWrapperStyle={{flex: 1, justifyContent: 'space-between' }}
+            />
          </ScrollView>
       </ScrollView>
    );
@@ -101,17 +140,14 @@ const styles = StyleSheet.create({
    topMusics: {
       marginTop: 30,
       display: "flex",
-      gap: 20
+      gap: 20,
    },
-   topMusic: {
+   music: {
       display: "flex",
-      flexDirection: "row",
       gap: 10,
       textAlign: "center",
       justifyContent: "space-between",
-      alignSelf: "stretch",
       marginLeft: 5
-
    },
    topMusicImage: {
       width: 60,

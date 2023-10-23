@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 
 const trendingList = [
    {
@@ -30,29 +30,41 @@ const trendingList = [
 ]
 
 const TrendingPlaylists = () => {
+   const [trending, setTrending] = useState([]);
+   useEffect(() => {
+      setTrending(trendingList);
+   }, [])
+   const render = ({ item }) => {
+      return (
+         <View style={styles.trendingListContainer}>
+
+            <TouchableOpacity style={{ display: "flex", gap: 5 }} >
+               <Image source={{ uri: item.img }} style={styles.img} />
+               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.name}</Text>
+               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.desc}</Text>
+               <Image source={{ uri: item.icon }} style={styles.icon} />
+            </TouchableOpacity>
+         </View>
+      );
+   }
    return (
       <ScrollView >
          <View style={styles.trendingContainer}>
-            <View style={{ display: "flex", flexDirection: "column", gap: 10}}>
-               <Text style={{fontSize:14, color:"#ccc", fontWeight:"bold"}}>FOR YOU</Text>
+            <View style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+               <Text style={{ fontSize: 14, color: "#ccc", fontWeight: "bold" }}>FOR YOU</Text>
                <Text style={styles.trendingText}>Trending community playlists</Text>
             </View>
          </View>
-         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.trendingListContainer}>
-               {
-                  trendingList.map((trending, index) => (
-                     <TouchableOpacity key={index} style={{ display: "flex", gap: 5 }} >
-                        <Image source={{ uri: trending.img }} style={styles.img} />
-                        <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{trending.name}</Text>
-                        <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{trending.desc}</Text>
-                        <Image source={{ uri: trending.icon }} style={styles.icon} />
-                     </TouchableOpacity>
-                  ))
-               }
-            </View>
-         </ScrollView>
-      </ScrollView>
+         <View>
+            <FlatList
+               data={trending}
+               renderItem={render}
+               keyExtractor={(item, index) => index.toString()}
+               horizontal={true}
+               showsHorizontalScrollIndicator={false}
+            />
+         </View>
+      </ScrollView >
    );
 }
 
