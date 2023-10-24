@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -6,40 +6,39 @@ import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
-const hits = [
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Better Off",
-      auth: "(Alone, Pt.III)"
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Spectre",
-      auth: ""
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Love Is A Drug",
-      auth: "(feat. Anne Gudr...)"
-   },
-]
-
 const HitToday = () => {
+   const [hitTodayList, setHitTodayList] = useState([])
+   const hitList = async () => {
+      try {
+         const response = await fetch("http://192.168.51.102:8080/song/search/findByIsHitTodayTrue");
+         const json = await response.json();
+         if (JSON.stringify(json._embedded.songs) !== JSON.stringify(hitTodayList)) {
+            setHitTodayList(json._embedded.songs);
+         } else {
+            console.log("No change in hit today data.");
+         }
+      } catch (error) {
+         console.error("Error:", error);
+      }
+   };
+   useEffect(() => {
+      hitList();
+   }, [hitTodayList]);
    return (
       <ScrollView>
          <LinearGradient colors={["rgba(202,239,215,0.7)", "rgba(245,191,215,0.7)", "rgba(171,201,233,0.7)"]} style={styles.container}>
             <View style={styles.headerContainer}>
-               <Image source={{ uri: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg" }} style={{ width: 100, height: 100 }} />
+               <Image source={{ uri: "https://cdn.tgdd.vn/Files/2021/10/20/1392306/10-bai-nhac-buon-tik-tok-co-loi-giai-dieu-da-diet-thon-thuc-nguoi-nghe-202110202351463368.jpg" }} style={{ width: 100, height: 100 }} />
                <View>
                   <Text style={styles.text}>Chroma: Today's Dance Hits</Text>
                   <Text style={styles.text}>Youtube Music</Text>
                </View>
             </View>
             {
-               hits.map((hit, index) => (
+               hitTodayList.map((hit, index) => (
                   <TouchableOpacity key={index} style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 10 }}>
-                     <Image source={{ uri: hit.img }} style={{ width: 50, height: 50 }} />
-                     <Text style={{ fontWeight: "500" }}>{hit.name} {hit.auth}</Text>
+                     <Image source={{ uri: hit.image }} style={{ width: 50, height: 50 }} />
+                     <Text style={{ fontWeight: "500" }}>{hit.songName} {hit.author}</Text>
                   </TouchableOpacity>
                ))
             }

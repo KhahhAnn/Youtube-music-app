@@ -3,25 +3,22 @@ import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList }
 
 const TrendingPlaylists = () => {
    const [trending, setTrending] = useState([]);
-   let prevTrending;
-
    const trendingList = async () => {
       try {
          const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsPlaylistTrue");
-         console.log("Response Status:", response.status);
          const json = await response.json();
-         console.log("Response JSON:", json._embedded.albums);
-         prevTrending = trending;
-         return setTrending(json._embedded.albums);
+         if (JSON.stringify(json._embedded.albums) !== JSON.stringify(trending)) {
+            setTrending(json._embedded.albums);
+         } else {
+            console.log("No change in trending data.");
+         }
       } catch (error) {
          console.error("Error:", error);
       }
    };
    useEffect(() => {
-      if (trending !== prevTrending) {
-         trendingList();
-      }
-   }, [prevTrending]);
+      trendingList();
+   }, [trending]);
    const render = ({ item }) => {
       return (
          <View style={styles.trendingListContainer}>
@@ -54,8 +51,6 @@ const TrendingPlaylists = () => {
       </ScrollView >
    );
 }
-
-
 const styles = StyleSheet.create({
    trendingContainer: {
       display: "flex",

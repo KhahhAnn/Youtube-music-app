@@ -2,50 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 
-// const recommendList = [
-//    {
-//       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-//       name: "Phuong Linh Radio",
-//       desc: "Hồ Phương Liên, Ngọc Liên, Tuấn Anh, Hà"
-//    },
-//    {
-//       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-//       name: "Vương Anh Tú Radio",
-//       desc: "Vương Anh Tú, Khải Đăng, Thanh Hưng, Quân"
-//    },
-//    {
-//       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-//       name: "Freadk D Radio",
-//       desc: "Freak D & 1 9 6 7"
-//    },
-//    {
-//       img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-//       name: "W/n Radio",
-//       desc: "Tăng Duy Tân, Củ Cải, Flepy, NamLee"
-//    },
-// ]
-
 const RecommendRadio = () => {
    const [recommend, setRecommend] = useState([]);
-   let prevRecommend;
-
-   const recapList = async () => {
+   const recommendList = async () => {
       try {
          const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsRadioTrue");
-         console.log("Response Status:", response.status);
          const json = await response.json();
-         console.log("Response JSON:", json._embedded.albums);
-         prevRecap = recommend;
-         return setRecommend(json._embedded.albums);
+         if (JSON.stringify(json._embedded.albums) !== JSON.stringify(recommend)) {
+            setRecommend(json._embedded.albums);
+         } else {
+            console.log("No change in recomment data.");
+         }
       } catch (error) {
          console.error("Error:", error);
       }
    };
    useEffect(() => {
-      if (recommend !== prevRecommend) {
-         recapList();
-      }
-   }, [prevRecommend]);
+      recommendList();
+   }, [recommend]);
    const render = ({ item }) => {
       return (
          <View style={styles.RecommendedListContainer}>
@@ -120,7 +94,7 @@ const styles = StyleSheet.create({
       marginLeft: 5,
       marginRight: 5,
       maxHeight: 300,
-      height:"100%"
+      height: "100%"
    },
    RecommendedImg: {
       width: "100%",

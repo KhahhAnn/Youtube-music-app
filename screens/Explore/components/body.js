@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, StyleSheet, FlatList } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
 const moodList = [
    {
@@ -60,9 +60,9 @@ const Body = () => {
    const render = ({ item }) => {
       return (
          <View style={{ ...styles.row, borderTopColor: item.color, maxWidth: 200 }}>
-            <View style={{ ...styles.item, borderLeftColor: item.color }}>
+            <TouchableOpacity style={{ ...styles.item, borderLeftColor: item.color }}>
                <Text style={styles.itemText}>{item.text}</Text>
-            </View>
+            </TouchableOpacity>
          </View>
       );
    }

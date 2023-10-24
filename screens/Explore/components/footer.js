@@ -2,42 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 
-const videoList = [
-   {
-      img: "https://tse4.mm.bing.net/th?id=OIP.ZKMYg8RsIyPU8XPDCw1lUwHaHa&pid=Api&P=0&h=180",
-      name: "B RAY - Anh luôn như vậy (feat.cậu bảo) | Official music video",
-      desc: "Bray • 2.3M views"
-   },
-   {
-      img: "https://tse4.mm.bing.net/th?id=OIP.ZKMYg8RsIyPU8XPDCw1lUwHaHa&pid=Api&P=0&h=180",
-      name: "KARIK - Bạn đời (feat. GDucky) | Official music video",
-      desc: "Karic • 6.2M views"
-   },
-   {
-      img: "https://tse4.mm.bing.net/th?id=OIP.ZKMYg8RsIyPU8XPDCw1lUwHaHa&pid=Api&P=0&h=180",
-      name: "Mẹ biết mẹ buồn - OgeNus - Rap Việt 2023",
-      desc: "Ogenus • 252K views"
-   },
-   {
-      img: "https://tse4.mm.bing.net/th?id=OIP.ZKMYg8RsIyPU8XPDCw1lUwHaHa&pid=Api&P=0&h=180",
-      name: "Vô tri",
-      desc: "HuyR • 251K views"
-   },
-]
 
 const Footer = () => {
    const [video, setVideo] = useState([]);
+   const videoList = async () => {
+      try {
+         const response = await fetch("http://192.168.51.102:8080/video");
+         const json = await response.json();
+         if (JSON.stringify(json._embedded.videos) !== JSON.stringify(video)) {
+            setVideo(json._embedded.videos);
+         } else {
+            console.log("No change in  data.");
+         }
+      } catch (error) {
+         console.error("Error:", error);
+      }
+   };
    useEffect(() => {
-      setVideo(videoList)
-   }, [])
+      videoList();
+   }, [video]);
    const render = ({ item }) => {
       return (
          <TouchableOpacity style={styles.videoListContainer}>
             <View style={{ display: "flex", gap: 5 }} >
                <AntDesign name="caretright" size={24} color="#918ca9" style={styles.icon} />
-               <Image source={{ uri: item.img }} style={styles.videoImg} />
-               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.name}</Text>
-               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.desc}</Text>
+               <Image source={{ uri: item.image }} style={styles.videoImg} />
+               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.description}</Text>
+               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.author}</Text>
             </View>
          </TouchableOpacity>
       );

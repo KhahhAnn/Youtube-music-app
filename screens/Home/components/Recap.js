@@ -4,25 +4,23 @@ import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList }
 
 const Recap = () => {
    const [recap, setRecap] = useState([]);
-   let prevRecap;
 
    const recapList = async () => {
       try {
          const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsRecapTrue");
-         console.log("Response Status:", response.status);
          const json = await response.json();
-         console.log("Response JSON:", json._embedded.albums);
-         prevRecap = recap;
-         return setRecap(json._embedded.albums);
+         if (JSON.stringify(json._embedded.albums) !== JSON.stringify(recap)) {
+            setRecap(json._embedded.albums);
+         } else {
+            console.log("No change in recap data.");
+         }
       } catch (error) {
          console.error("Error:", error);
       }
    };
    useEffect(() => {
-      if (recap !== prevRecap) {
-         recapList();
-      }
-   }, [prevRecap]);
+      recapList();
+   }, [recap]);
    const render = ({ item }) => {
       console.log("Rendering item:", item);
       return (

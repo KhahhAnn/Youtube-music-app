@@ -10,11 +10,11 @@ const CreateRadio = () => {
          <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}>Your music tuner</Text>
          <TouchableOpacity>
             <Image
-               source={{ uri: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg" }}
+               source={{ uri: "https://png.pngtree.com/png-clipart/20201226/ourlarge/pngtree-music-cassette-used-in-the-radio-png-image_2633425.jpg" }}
                style={styles.image}
             />
+            <Feather name="plus" size={24} color="black" style={styles.icon} />
          </TouchableOpacity>
-         <Feather name="plus" size={24} color="black" style={styles.icon} />
       </View>
    );
 }
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       left: 180,
       padding: 15,
       borderRadius: 35,
-      backgroundColor: "#fff",
+      backgroundColor: "#ddd",
       borderColor: "#fff"
    },
 
