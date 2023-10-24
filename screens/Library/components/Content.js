@@ -1,11 +1,32 @@
-import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Content = () => {
+   const [albums, setAlbums] = useState([]);
+   let prevAlbums;
+
+   const trendingList = async () => {
+      try {
+         const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsAlbumTrue");
+         console.log("Response Status:", response.status);
+         const json = await response.json();
+         console.log("Response JSON:", json._embedded.albums);
+         prevAlbums = albums;
+         return setAlbums(json._embedded.albums);
+      } catch (error) {
+         console.error("Error:", error);
+      }
+   };
+
+   useEffect(() => {
+      if (albums !== prevAlbums) {
+         trendingList();
+      }
+   }, [prevAlbums]);
+
    return (
-      <ScrollView style={[styles.ml5, styles.mr5, styles.mt20]}>
+      <View style={[styles.ml5, styles.mr5, styles.mt20]}>
          <View style={{ ...styles.flexRow, justifyContent: "space-between" }}>
             <View style={{ ...styles.flexRow, gap: 10 }}>
                <Text style={styles.primText}>Recent activity</Text>
@@ -15,53 +36,25 @@ const Content = () => {
                <AntDesign name="appstore-o" size={24} color="white" />
             </TouchableOpacity>
          </View>
-         <View style={styles.mt20}>
-            <View style={styles.flexRow}>
-               <TouchableOpacity style={styles.flexRow}>
-                  <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
-                  <View style={styles.flexCol}>
-                     <Text style={styles.primText}>Mr Siro</Text>
-                     <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
-                  </View>
-               </TouchableOpacity>
-               <Feather name="more-vertical" size={24} color="white" />
+         {albums.map((item, index) => (
+            <View key={index} style={styles.trendingListContainer}>
+               <View style={styles.flexRow}>
+                  <TouchableOpacity style={{ display: "flex", gap: 5, flexDirection: "row", alignItems: "center" }} >
+                     <Image source={{ uri: item.image }} style={{ width: 70, height: 70, borderRadius: 5 }} />
+                     <View style={styles.flexCol}>
+                        <Text style={styles.primText}>{item.albumName}</Text>
+                        <Text style={styles.descText}>{item.description}</Text>
+                     </View>
+                  </TouchableOpacity>
+                  <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 20 }} />
+               </View>
             </View>
-            <View style={styles.flexRow}>
-               <TouchableOpacity style={styles.flexRow}>
-                  <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
-                  <View style={styles.flexCol}>
-                     <Text style={styles.primText}>Mr Siro</Text>
-                     <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
-                  </View>
-               </TouchableOpacity>
-               <Feather name="more-vertical" size={24} color="white" />
-            </View>
-            <View style={styles.flexRow}>
-               <TouchableOpacity style={styles.flexRow}>
-                  <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
-                  <View style={styles.flexCol}>
-                     <Text style={styles.primText}>Mr Siro</Text>
-                     <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
-                  </View>
-               </TouchableOpacity>
-               <Feather name="more-vertical" size={24} color="white" />
-            </View>
-            <View style={styles.flexRow}>
-               <TouchableOpacity style={styles.flexRow}>
-                  <Image source={{ uri: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" }} style={{ width: 70, height: 70, borderRadius: 5 }} />
-                  <View style={styles.flexCol}>
-                     <Text style={styles.primText}>Mr Siro</Text>
-                     <Text style={styles.descText}>Artist • 2.07M subscribers</Text>
-                  </View>
-               </TouchableOpacity>
-               <Feather name="more-vertical" size={24} color="white" />
-            </View>
-         </View>
+         ))}
          <TouchableOpacity style={{ display: 'flex', flexDirection: "row", alignItems: "center", backgroundColor: "white", maxWidth: 150, padding: 10, borderRadius: 20, left: 230 }}>
             <AntDesign name="plus" size={20} color="black" />
             <Text style={{ color: "black", fontSize: 18 }}>New playlists</Text>
          </TouchableOpacity>
-      </ScrollView>
+      </View>
    );
 }
 
@@ -95,7 +88,7 @@ const styles = StyleSheet.create({
    },
    descText: {
       color: "#ccc",
-   }
-})
+   },
+});
 
 export default Content;

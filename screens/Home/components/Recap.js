@@ -8,7 +8,7 @@ const Recap = () => {
 
    const recapList = async () => {
       try {
-         const response = await fetch('http://192.168.51.102:8080/albums?isRecap=true');
+         const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsRecapTrue");
          console.log("Response Status:", response.status);
          const json = await response.json();
          console.log("Response JSON:", json._embedded.albums);

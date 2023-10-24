@@ -1,47 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
-
-const trendingList = [
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Nhạc của tui",
-      desc: "Nguyễn Xuân Trường • 68 views",
-      icon: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg"
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "newthang",
-      desc: "Perry Nguyễn • 541 views",
-      icon: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg"
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "Hỗn Loạn",
-      desc: "Hải Thanh • 87 views",
-      icon: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg"
-   },
-   {
-      img: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg",
-      name: "VN - Rap",
-      desc: "Việt • 2.2K views",
-      icon: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg"
-   },
-]
 
 const TrendingPlaylists = () => {
    const [trending, setTrending] = useState([]);
+   let prevTrending;
+
+   const trendingList = async () => {
+      try {
+         const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsPlaylistTrue");
+         console.log("Response Status:", response.status);
+         const json = await response.json();
+         console.log("Response JSON:", json._embedded.albums);
+         prevTrending = trending;
+         return setTrending(json._embedded.albums);
+      } catch (error) {
+         console.error("Error:", error);
+      }
+   };
    useEffect(() => {
-      setTrending(trendingList);
-   }, [])
+      if (trending !== prevTrending) {
+         trendingList();
+      }
+   }, [prevTrending]);
    const render = ({ item }) => {
       return (
          <View style={styles.trendingListContainer}>
-
             <TouchableOpacity style={{ display: "flex", gap: 5 }} >
-               <Image source={{ uri: item.img }} style={styles.img} />
-               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.name}</Text>
-               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.desc}</Text>
+               <Image source={{ uri: item.image }} style={styles.img} />
+               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
+               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>
                <Image source={{ uri: item.icon }} style={styles.icon} />
             </TouchableOpacity>
          </View>
