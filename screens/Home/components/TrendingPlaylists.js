@@ -1,8 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const TrendingPlaylists = () => {
+const TrendingPlaylists = ({ item }) => {
    const [trending, setTrending] = useState([]);
+   const navigation = useNavigation();
    const trendingList = async () => {
       try {
          const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsPlaylistTrue");
@@ -22,7 +24,7 @@ const TrendingPlaylists = () => {
    const render = ({ item }) => {
       return (
          <View style={styles.trendingListContainer}>
-            <TouchableOpacity style={{ display: "flex", gap: 5 }} >
+            <TouchableOpacity style={{ display: "flex", gap: 5 }} onPress={() => navigation.navigate("AlbumDetail", { album: item })} >
                <Image source={{ uri: item.image }} style={styles.img} />
                <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
                <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>

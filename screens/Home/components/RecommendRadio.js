@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
-const RecommendRadio = () => {
+const RecommendRadio = ({item}) => {
    const [recommend, setRecommend] = useState([]);
+   const navigation = useNavigation();
    const recommendList = async () => {
       try {
          const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsRadioTrue");
@@ -23,7 +25,7 @@ const RecommendRadio = () => {
    const render = ({ item }) => {
       return (
          <View style={styles.RecommendedListContainer}>
-            <TouchableOpacity style={{ display: "flex", gap: 5 }} >
+            <TouchableOpacity style={{ display: "flex", gap: 5 }} onPress={() => navigation.navigate("AlbumDetail", { album: item })}>
                <AntDesign name="playcircleo" size={16} color="#918ca9" style={styles.icon} />
                <Image source={{ uri: item.image }} style={styles.RecommendedImg} />
                <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>

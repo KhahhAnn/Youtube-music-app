@@ -1,9 +1,11 @@
 import { AntDesign, Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const Content = () => {
+const Content = ({item}) => {
    const [albums, setAlbums] = useState([]);
+   const navigation = useNavigation();
    let prevAlbums;
 
    const trendingList = async () => {
@@ -39,7 +41,7 @@ const Content = () => {
          {albums.map((item, index) => (
             <View key={index} style={styles.trendingListContainer}>
                <View style={styles.flexRow}>
-                  <TouchableOpacity style={{ display: "flex", gap: 5, flexDirection: "row", alignItems: "center" }} >
+                  <TouchableOpacity style={{ display: "flex", gap: 5, flexDirection: "row", alignItems: "center" }}  onPress={() => navigation.navigate("AlbumDetail", { album: item })}>
                      <Image source={{ uri: item.image }} style={{ width: 70, height: 70, borderRadius: 5 }} />
                      <View style={styles.flexCol}>
                         <Text style={styles.primText}>{item.albumName}</Text>

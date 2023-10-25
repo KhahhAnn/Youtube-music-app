@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const Recap = () => {
+const Recap = ({item}) => {
    const [recap, setRecap] = useState([]);
-
+   const navigation = useNavigation();
    const recapList = async () => {
       try {
          const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsRecapTrue");
@@ -25,7 +26,7 @@ const Recap = () => {
       console.log("Rendering item:", item);
       return (
          <View style={styles.recapListContainer}>
-            <TouchableOpacity style={{ display: "flex", gap: 5 }} >
+            <TouchableOpacity style={{ display: "flex", gap: 5 }} onPress={() => navigation.navigate("AlbumDetail", { album: item })}>
                <Image source={{ uri: item.image }} style={styles.recapImg} />
                <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
                <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>

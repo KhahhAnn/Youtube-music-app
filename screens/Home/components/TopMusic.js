@@ -1,11 +1,13 @@
 
 import { Feather, Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import HTML from 'react-native-render-html';
 
-const TopMusic = () => {
+const TopMusic = ({item}) => {
    const [topMusicList, setTopMusicList] = useState([])
+   const navigation = useNavigation();
    const topList = async () => {
       try {
          const response = await fetch("http://192.168.51.102:8080/song/search/findByRankingLessThanOrderByRanking?ranking=11");
@@ -27,7 +29,7 @@ const TopMusic = () => {
          <View style={styles.topMusics}>
             <View style={styles.music}>
                <View style={styles.topMusicText}>
-                  <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                  <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}  onPress={() => navigation.navigate("SongDetail", { song: item })}>
                      <View style={styles.change}>
                         <Text style={{ fontSize: 20, color: "#eee", marginBottom: 5 }}>{item.ranking}</Text>
                         

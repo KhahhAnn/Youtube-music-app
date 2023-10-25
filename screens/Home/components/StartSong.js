@@ -56,7 +56,7 @@ const StartSong = () => {
                   keyExtractor={(item, index) => index.toString()}
                   numColumns={4}
                   columnWrapperStyle={{ justifyContent: 'space-between' }}
-               />
+               />    
             </View>
          </ScrollView>
       </ScrollView>

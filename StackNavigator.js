@@ -14,6 +14,8 @@ import LoginScreen from "./screens/Login/LoginScreen";
 import Library from "./screens/Library/Library";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import LibraryScreen from "./screens/Library/Library";
+import AlbumDetail from "./screens/components/AlbumDetail";
+import SongDetail from "./screens/components/SongDetail";
 const Tab = createBottomTabNavigator();
 
 function BottomTabs() {
@@ -64,7 +66,7 @@ function BottomTabs() {
                headerShown: false,
                tabBarLabelStyle: { color: "white" },
                tabBarIcon: ({ focused }) =>
-                  focused ?  (<MaterialCommunityIcons name="music-box-multiple" size={24} color="white" />) : (<MaterialCommunityIcons name="music-box-multiple-outline" size={24} color="white" />)
+                  focused ? (<MaterialCommunityIcons name="music-box-multiple" size={24} color="white" />) : (<MaterialCommunityIcons name="music-box-multiple-outline" size={24} color="white" />)
             }}
          />
          <Tab.Screen
@@ -89,7 +91,7 @@ function BottomTabs() {
                   focused ? (<Ionicons name="person" size={24} color="white" />) : (<Ionicons name="person-outline" size={24} color="white" />)
             }}
          />
-         
+
       </Tab.Navigator>
    );
 }
@@ -104,6 +106,8 @@ function Navigation() {
             <Stack.Screen name="Upgrade" component={BottomTabs} options={{ headerShown: false }} />
             <Stack.Screen name="Profile" component={BottomTabs} options={{ headerShown: false }} />
             <Stack.Screen name="Library" component={BottomTabs} options={{ headerShown: false }} />
+            <Stack.Screen name="AlbumDetail" component={AlbumDetail} options={{ headerShown: false }} />
+            <Stack.Screen name="SongDetail" component={SongDetail} options={{ headerShown: false }} />
          </Stack.Navigator>
       </NavigationContainer>
    );
