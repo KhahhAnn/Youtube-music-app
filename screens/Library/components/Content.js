@@ -4,13 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Content = ({item}) => {
+   const ipv4 = "192.168.43.194";
    const [albums, setAlbums] = useState([]);
    const navigation = useNavigation();
    let prevAlbums;
 
    const trendingList = async () => {
       try {
-         const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsAlbumTrue");
+         const response = await fetch(`http://${ipv4}:8080/albums/search/findByIsAlbumTrue`);
          console.log("Response Status:", response.status);
          const json = await response.json();
          console.log("Response JSON:", json._embedded.albums);

@@ -6,11 +6,12 @@ import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View }
 import HTML from 'react-native-render-html';
 
 const TopMusic = ({item}) => {
+   const ipv4 = "192.168.43.194";
    const [topMusicList, setTopMusicList] = useState([])
    const navigation = useNavigation();
    const topList = async () => {
       try {
-         const response = await fetch("http://192.168.51.102:8080/song/search/findByRankingLessThanOrderByRanking?ranking=11");
+         const response = await fetch(`http://${ipv4}:8080/song/search/findByRankingLessThanOrderByRanking?ranking=11`);
          const json = await response.json();
          if (JSON.stringify(json._embedded.songs) !== JSON.stringify(topMusicList)) {
             setTopMusicList(json._embedded.songs);

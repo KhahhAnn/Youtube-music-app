@@ -7,12 +7,13 @@ import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const HitToday = ({item}) => {
+const HitToday = ({ item }) => {
+   const ipv4 = "192.168.43.194";
    const [hitTodayList, setHitTodayList] = useState([])
    const navigation = useNavigation();
    const hitList = async () => {
       try {
-         const response = await fetch(`http://192.168.51.102:8080/song/search/findByIsHitTodayTrue?page=&size=${hitTodayList.length}`);
+         const response = await fetch(`http://${ipv4}:8080/song/search/findByIsHitTodayTrue?page=&size=${hitTodayList.length}`);
          const json = await response.json();
          if (JSON.stringify(json._embedded.songs) !== JSON.stringify(hitTodayList)) {
             setHitTodayList(json._embedded.songs);
@@ -38,9 +39,12 @@ const HitToday = ({item}) => {
             </View>
             {
                hitTodayList.map((hit, index) => (
-                  <TouchableOpacity key={index} style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 10 }}  onPress={() => navigation.navigate("SongDetail", { song: hit })}>
+                  <TouchableOpacity key={index} style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 10 }} onPress={() => navigation.navigate("SongDetail", { song: hit })}>
                      <Image source={{ uri: hit.image }} style={{ width: 50, height: 50 }} />
-                     <Text style={{ fontWeight: "500" }}>{hit.songName} {hit.author}</Text>
+                     <View>
+                        <Text style={{ fontWeight: "500" }}>{hit.songName}</Text>
+                        <Text style={{ fontWeight: "500" }}>{hit.author}</Text>
+                     </View>
                   </TouchableOpacity>
                ))
             }

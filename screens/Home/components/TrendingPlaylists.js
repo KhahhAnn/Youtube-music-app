@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const TrendingPlaylists = ({ item }) => {
+   const ipv4 = "192.168.43.194";
    const [trending, setTrending] = useState([]);
    const navigation = useNavigation();
    const trendingList = async () => {
       try {
-         const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsPlaylistTrue");
+         const response = await fetch(`http://${ipv4}:8080/albums/search/findByIsPlaylistTrue`);
          const json = await response.json();
          if (JSON.stringify(json._embedded.albums) !== JSON.stringify(trending)) {
             setTrending(json._embedded.albums);

@@ -4,11 +4,12 @@ import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList }
 import { useNavigation } from '@react-navigation/native';
 
 const Recap = ({item}) => {
+   const ipv4 = "192.168.43.194";
    const [recap, setRecap] = useState([]);
    const navigation = useNavigation();
    const recapList = async () => {
       try {
-         const response = await fetch("http://192.168.51.102:8080/albums/search/findByIsRecapTrue");
+         const response = await fetch(`http://${ipv4}:8080/albums/search/findByIsRecapTrue`);
          const json = await response.json();
          if (JSON.stringify(json._embedded.albums) !== JSON.stringify(recap)) {
             setRecap(json._embedded.albums);

@@ -1,12 +1,15 @@
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const StartSong = () => {
+const StartSong = ({item}) => {
+   const navigation = useNavigation();
+   const ipv4 = "192.168.43.194";
    const [startSong, setStartSong] = useState([])
    const topList = async () => {
       try {
-         const response = await fetch("http://192.168.51.102:8080/song/search/findByIsStartSongTrue");
+         const response = await fetch(`http://${ipv4}:8080/song/search/findByIsStartSongTrue`);
          const json = await response.json();
          if (JSON.stringify(json._embedded.songs) !== JSON.stringify(startSong)) {
             setStartSong(json._embedded.songs);
@@ -24,7 +27,7 @@ const StartSong = () => {
       return (
          <View style={styles.startSong}>
             <View style={styles.startSongText}>
-               <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+               <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={() => navigation.navigate("SongDetail", { song: item })}>
                   <Image source={{ uri: item.image }} style={styles.startSongImage} />
                   <View style={{ marginLeft: 10, width: 240 }}>
                      <Text style={{ fontSize: 16, color: "#fff" }}>{item.songName}</Text>
