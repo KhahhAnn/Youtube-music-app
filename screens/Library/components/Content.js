@@ -5,6 +5,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Content = ({item}) => {
    const ipv4 = "192.168.43.194";
+   // const ipv4 = "192.168.51.102";
+
    const [albums, setAlbums] = useState([]);
    const navigation = useNavigation();
    let prevAlbums;

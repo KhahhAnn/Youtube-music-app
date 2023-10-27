@@ -14,6 +14,7 @@ const HeaderNav = () => {
          setSearchMode(false);
       } else {
          navigation.navigate('SearchScreen', { query });
+         setSearchMode(false);
       }
    };
 

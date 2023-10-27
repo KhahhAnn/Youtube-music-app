@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const RecommendRadio = ({item}) => {
    const ipv4 = "192.168.43.194";
+   // const ipv4 = "192.168.51.102";
    const [recommend, setRecommend] = useState([]);
    const navigation = useNavigation();
    const recommendList = async () => {

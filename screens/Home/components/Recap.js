@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Recap = ({item}) => {
    const ipv4 = "192.168.43.194";
+   // const ipv4 = "192.168.51.102";
    const [recap, setRecap] = useState([]);
    const navigation = useNavigation();
    const recapList = async () => {

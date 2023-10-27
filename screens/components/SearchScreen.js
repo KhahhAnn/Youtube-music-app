@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 
 const SearchScreen = ({ route }) => {
    const ipv4 = "192.168.43.194";
+   // const ipv4 = "192.168.51.102";
+
    const { query: initialQuery } = route.params;
    const navigation = useNavigation();
    const [searchSong, setSearchSong] = useState([]);
