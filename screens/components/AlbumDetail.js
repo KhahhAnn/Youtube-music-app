@@ -17,6 +17,7 @@ import * as Animatable from "react-native-animatable";
 
 const AlbumDetail = ({ route }) => {
    const ipv4 = "192.168.43.194";
+   // const ipv4 = "172.20.10.4";
    // const ipv4 = "192.168.51.102";
    const { album } = route.params;
    const navigation = useNavigation();
