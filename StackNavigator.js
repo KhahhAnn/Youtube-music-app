@@ -17,6 +17,7 @@ import LibraryScreen from "./screens/Library/Library";
 import AlbumDetail from "./screens/components/AlbumDetail";
 import SongDetail from "./screens/components/SongDetail";
 import SearchScreen from "./screens/components/SearchScreen";
+import VideoDetail from "./screens/components/VideoDetail";
 const Tab = createBottomTabNavigator();
 
 function BottomTabs() {
@@ -109,6 +110,7 @@ function Navigation() {
             <Stack.Screen name="Library" component={BottomTabs} options={{ headerShown: false }} />
             <Stack.Screen name="AlbumDetail" component={AlbumDetail} options={{ headerShown: false }} />
             <Stack.Screen name="SongDetail" component={SongDetail} options={{ headerShown: false }} />
+            <Stack.Screen name="VideoDetail" component={VideoDetail} options={{ headerShown: false }} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
          </Stack.Navigator>
       </NavigationContainer>

@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const Content = ({ item }) => {
-   const ipv4 = "192.168.43.194";
+   // const ipv4 = "192.168.43.194";
+   // const ipv4 = "172.20.10.3";
    // const ipv4 = "172.20.10.4";
-   // const ipv4 = "192.168.51.102";
+   const ipv4 = "192.168.51.102";
 
    const [albums, setAlbums] = useState([]);
    const [isModalVisible, setModalVisible] = useState(false);

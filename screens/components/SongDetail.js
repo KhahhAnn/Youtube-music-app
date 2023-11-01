@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Slider from "@react-native-community/slider";
-import { Audio } from "expo-av";
 import { Entypo, Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
+import Slider from "@react-native-community/slider";
+import { useNavigation } from "@react-navigation/native";
+import { Audio } from "expo-av";
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useEffect, useRef, useState } from "react";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import * as Animatable from 'react-native-animatable';
 
 const SongDetail = ({ route }) => {
    const { song } = route.params;
@@ -13,6 +14,8 @@ const SongDetail = ({ route }) => {
    const [isPlaying, setIsPlaying] = useState(false);
    const [position, setPosition] = useState(0);
    const [duration, setDuration] = useState(0);
+   const imageRef = useRef(null);
+   const [rotationProgress, setRotationProgress] = useState(0);
 
    useEffect(() => {
       return sound
@@ -37,11 +40,16 @@ const SongDetail = ({ route }) => {
    }, [sound]);
 
    const playSound = async () => {
+      console.log("play");
       if (sound) {
          if (isPlaying) {
             await sound.pauseAsync();
+            // Stop the rotation animation
+            animateImage(true, true);
          } else {
             await sound.playAsync();
+            // Start the rotation animation
+            animateImage(true, false);
          }
          setIsPlaying(!isPlaying);
       } else {
@@ -51,6 +59,27 @@ const SongDetail = ({ route }) => {
          );
          setSound(newSound);
          setIsPlaying(true);
+         // Start the rotation animation
+         animateImage(true);
+      }
+   };
+
+   const animateImage = (shouldRotate, reset = false) => {
+      if (shouldRotate) {
+         const animationConfig = {
+            0: {
+               translateX: 0,
+               translateY: 0,
+               rotate: reset ? '360deg' : '0deg', 
+            },
+            1: {
+               translateX: 0,
+               translateY: 0,
+               rotate: '360deg',
+            },
+         };
+   
+         imageRef.current?.animate(animationConfig, 8000, 0, 'linear');
       }
    };
 
@@ -86,7 +115,12 @@ const SongDetail = ({ route }) => {
                </View>
 
                <View style={{ padding: 10 }}>
-                  <Image
+                  <Animatable.Image
+                     ref={imageRef}
+                     animation="rotate"
+                     iterationCount={isPlaying ? "infinite" : 1}
+                     easing="linear"
+                     duration={1000}
                      style={{
                         width: 300,
                         height: 300,
@@ -147,7 +181,7 @@ const SongDetail = ({ route }) => {
                         {formatTime(position)}
                      </Text>
                      <Text style={{ color: "#fff", fontSize: 16 }}>
-                        {formatTime(duration-position)}
+                        {formatTime(duration - position)}
                      </Text>
                   </View>
                   <View
@@ -176,7 +210,8 @@ const SongDetail = ({ route }) => {
                            backgroundColor: "white",
                            justifyContent: "center",
                            alignItems: "center",
-                        }} onPress={playSound}
+                        }}
+                        onPress={playSound}
                      >
                         <FontAwesome
                            name={isPlaying ? "pause" : "play"}
@@ -197,6 +232,7 @@ const SongDetail = ({ route }) => {
       </View>
    );
 };
+
 
 const styles = StyleSheet.create({
    container: {

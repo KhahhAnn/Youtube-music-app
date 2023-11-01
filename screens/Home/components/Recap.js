@@ -4,9 +4,10 @@ import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList }
 import { useNavigation } from '@react-navigation/native';
 
 const Recap = ({item}) => {
-   const ipv4 = "192.168.43.194";
+   // const ipv4 = "192.168.43.194";
+   // const ipv4 = "172.20.10.3";
    // const ipv4 = "172.20.10.4";
-   // const ipv4 = "192.168.51.102";
+   const ipv4 = "192.168.51.102";
    const [recap, setRecap] = useState([]);
    const navigation = useNavigation();
    const recapList = async () => {

@@ -3,9 +3,10 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Button, Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 const CreateRadio = () => {
-   const ipv4 = "192.168.43.194";
+   // const ipv4 = "192.168.43.194";
+   // const ipv4 = "172.20.10.3";
    // const ipv4 = "172.20.10.4";
-   // const ipv4 = "192.168.51.102";
+   const ipv4 = "192.168.51.102";
 
    const navigation = useNavigation();
    const [isModalVisible, setModalVisible] = useState(false);

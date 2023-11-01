@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
-const Footer = () => {
-   const ipv4 = "192.168.43.194";
+const Footer = ({item}) => {
+   // const ipv4 = "192.168.43.194";
    // const ipv4 = "172.20.10.4";
-   // const ipv4 = "192.168.51.102";
+   const ipv4 = "192.168.51.102";
 
+   const navigation = useNavigation();
    const [video, setVideo] = useState([]);
    const videoList = async () => {
       try {
@@ -27,7 +29,7 @@ const Footer = () => {
    }, [video]);
    const render = ({ item }) => {
       return (
-         <TouchableOpacity style={styles.videoListContainer}>
+         <TouchableOpacity style={styles.videoListContainer} onPress={() => navigation.navigate("VideoDetail", { video: item })}>
             <View style={{ display: "flex", gap: 5 }} >
                <AntDesign name="caretright" size={24} color="#918ca9" style={styles.icon} />
                <Image source={{ uri: item.image }} style={styles.videoImg} />
