@@ -10,7 +10,7 @@ import YoutubeMusicLogo from "../../logo/logoMusic";
 function LoginScreen() {
    const navigation = useNavigation();
    async function changePage() {
-      navigation.navigate('Main')
+      navigation.navigate('SignIn')
    }
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>

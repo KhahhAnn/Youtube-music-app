@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../../components/SearchBar';
 
-const HeaderNav = () => {
+const HeaderNav = ({user}) => {
    const navigation = useNavigation();
    const [searchMode, setSearchMode] = useState(false);
 
@@ -37,7 +37,7 @@ const HeaderNav = () => {
                <Image
                   style={styles.icon}
                   source={{
-                     uri: 'https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg',
+                     uri: user.image,
                   }}
                />
             )}

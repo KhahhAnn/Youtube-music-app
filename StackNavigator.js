@@ -1,22 +1,18 @@
+import { AntDesign, Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "./screens/Home/HomeScreen";
-import { Entypo } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { NavigationContainer, useRoute } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { FontAwesome } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+import ProfileScreen from './screens/Account/ProfileScreen';
 import ExploreScreen from "./screens/Explore/ExploreScreen";
-import Upgrade from "./screens/Upgrade/Upgrade";
-import ProfileScreen from './screens/Account/ProfileScreen'
-import LoginScreen from "./screens/Login/LoginScreen";
-import Library from "./screens/Library/Library";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import HomeScreen from "./screens/Home/HomeScreen";
 import LibraryScreen from "./screens/Library/Library";
+import LoginScreen from "./screens/Login/LoginScreen";
+import Upgrade from "./screens/Upgrade/Upgrade";
 import AlbumDetail from "./screens/components/AlbumDetail";
-import SongDetail from "./screens/components/SongDetail";
+import Register from "./screens/components/Register";
 import SearchScreen from "./screens/components/SearchScreen";
+import Login from "./screens/components/SignIn";
+import SongDetail from "./screens/components/SongDetail";
 import VideoDetail from "./screens/components/VideoDetail";
 const Tab = createBottomTabNavigator();
 
@@ -103,7 +99,7 @@ function Navigation() {
       <NavigationContainer>
          <Stack.Navigator>
             <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Main" component={BottomTabs} options={{ headerShown: false }} />
+            <Stack.Screen name="Main" component={BottomTabs}  options={{ headerShown: false }} />
             <Stack.Screen name="Explore" component={BottomTabs} options={{ headerShown: false }} />
             <Stack.Screen name="Upgrade" component={BottomTabs} options={{ headerShown: false }} />
             <Stack.Screen name="Profile" component={BottomTabs} options={{ headerShown: false }} />
@@ -111,11 +107,11 @@ function Navigation() {
             <Stack.Screen name="AlbumDetail" component={AlbumDetail} options={{ headerShown: false }} />
             <Stack.Screen name="SongDetail" component={SongDetail} options={{ headerShown: false }} />
             <Stack.Screen name="VideoDetail" component={VideoDetail} options={{ headerShown: false }} />
+            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+            <Stack.Screen name="SignIn" component={Login} options={{ headerShown: false }} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
          </Stack.Navigator>
       </NavigationContainer>
    );
 }
 export default Navigation;
-
-

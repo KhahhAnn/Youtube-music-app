@@ -5,12 +5,16 @@ import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View }
 import * as Animatable from "react-native-animatable";
 
 
-const StartSong = ({ item }) => {
+const StartSong = ({ user }) => {
    const navigation = useNavigation();
    // const ipv4 = "192.168.43.194";
    // const ipv4 = "172.20.10.3";
    // const ipv4 = "172.20.10.4";
-   const ipv4 = "192.168.51.102";
+   // const ipv4 = "192.168.51.102";
+   // const ipv4 = "10.0.37.50";
+   const ipv4 = "192.168.1.22";
+
+
    const [startSong, setStartSong] = useState([])
    const [menuVisibility, setMenuVisibility] = useState({});
    const toggleMenu = (itemId) => {
@@ -37,18 +41,6 @@ const StartSong = ({ item }) => {
    }, [startSong]);
    const render = ({ item }) => {
       return (
-         // <View style={styles.startSong}>
-         //    <View style={styles.startSongText}>
-         //       <TouchableOpacity style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={() => navigation.navigate("SongDetail", { song: item })}>
-         //          <Image source={{ uri: item.image }} style={styles.startSongImage} />
-         //          <View style={{ marginLeft: 10, width: 240 }}>
-         //             <Text style={{ fontSize: 16, color: "#fff" }}>{item.songName}</Text>
-         //             <Text style={{ fontSize: 16, color: "rgba(255,255,255,0.7)" }}>{item.author}</Text>
-         //          </View>
-         //       </TouchableOpacity>
-         //       <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 40 }} />
-         //    </View>
-         // </View>
          <View style={styles.startSong}>
             <View style={[styles.startSongText]}>
                <TouchableOpacity
@@ -104,10 +96,10 @@ const StartSong = ({ item }) => {
    return (
       <ScrollView>
          <View style={styles.headerBodyContainer}>
-            <Image style={styles.icon} source={{ uri: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg" }} />
+            <Image style={styles.icon} source={{ uri: user.image }} />
             <View style={{ marginTop: 5 }}>
                <Text style={styles.headerBodyText}>MUSIC TO GET YOU STARTED</Text>
-               <Text style={styles.headerBodyTextBold}>Welcome Khánh An</Text>
+               <Text style={styles.headerBodyTextBold}>Welcome {user.userName}</Text>
             </View>
             <TouchableOpacity style={styles.buttonContainer}>
                <Text style={{ color: "#fff" }}>Play all</Text>
