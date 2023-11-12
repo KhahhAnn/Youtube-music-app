@@ -6,10 +6,10 @@ import { Button, Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 const Content = ({ item }) => {
    // const ipv4 = "192.168.43.194";
    // const ipv4 = "172.20.10.3";
-   // const ipv4 = "172.20.10.4";
+   const ipv4 = "172.20.10.4";
    // const ipv4 = "192.168.51.102";
    // const ipv4 = "10.0.37.50";
-   const ipv4 = "192.168.1.22";
+   // const ipv4 = "192.168.1.22";
 
 
 

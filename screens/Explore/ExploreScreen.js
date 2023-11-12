@@ -6,11 +6,12 @@ import Header from './components/header';
 import Body from './components/body';
 import Footer from './components/footer';
 
-const ExploreScreen = () => {
+const ExploreScreen = ({route}) => {
+   const {user} = route.params;
    return(
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1, paddingBottom: 60 }}>
          <ScrollView style={{ marginTop: 50, marginRight: 5, marginLeft: 5 }}>
-            <HeaderNav />
+            <HeaderNav user={user} />
             <Header />
             <Body />
             <Footer />

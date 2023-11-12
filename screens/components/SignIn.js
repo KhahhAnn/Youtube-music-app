@@ -6,7 +6,8 @@ import Button from './Button';
 import COLORS from '../constant/COLORS';
 
 const Login = ({ navigation }) => {
-   const ipv4 = "192.168.1.22";
+   const ipv4 = "172.20.10.4";
+   // const ipv4 = "192.168.1.22";
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
@@ -29,23 +30,37 @@ const Login = ({ navigation }) => {
          if (response.ok) {
             const userResponse = await fetch(`http://${ipv4}:8080/user/search/findByEmail?email=${email}`);
             const userJson = await userResponse.json();
-            navigation.navigate('Main', { screen: 'Home', params: { user: userJson } },{ screen: 'Library', params: { user: userJson } },{ screen: 'Upgrade', params: { user: userJson } },{ screen: 'Profile', params: { user: userJson } });
+            navigation.navigate(
+               "Main",
+               { screen: 'Profile', params: { user: userJson } }
+            );
+            navigation.navigate(
+               "Main",
+               { screen: 'Library', params: { user: userJson } },
+            );
+            navigation.navigate(
+               "Main",
+               { screen: 'Upgrade', params: { user: userJson } },
+            );
+            navigation.navigate(
+               "Main",
+               { screen: 'Explore', params: { user: userJson } },
+            );
+            navigation.navigate(
+               "Main",
+               { screen: 'Home', params: { user: userJson } },
+            );
          } else {
-            const errorMessage = await response.text();
-            setError(errorMessage);
+            setError("Mật khẩu hoặc tài khoản sai");
          }
       } catch (error) {
-         const errorMessage = await response.text();
-         setError(errorMessage);
+         setError("Mật khẩu hoặc tài khoản sai");
       }
    };
 
    return (
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
          <View style={{ flex: 1, marginHorizontal: 22 }}>
-            {error ? (
-               <Text style={{ color: 'red', marginBottom: 10 }}>{error}</Text>
-            ) : null}
             <View style={{ marginVertical: 22 }}>
                <Text style={{
                   fontSize: 22,
@@ -152,7 +167,9 @@ const Login = ({ navigation }) => {
                }}
                onPress={handleSignIn}
             />
-
+            {error ? (
+               <Text style={{ color: 'red', marginBottom: 10, fontSize: 18, textAlign:"center", marginTop: 10 }}>{error}</Text>
+            ) : null}
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
                <View
                   style={{

@@ -4,12 +4,13 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import HeaderNav from '../Home/components/HeaderNav';
 
-const Upgrade = () => {
+const Upgrade = ({route}) => {
+   const {user} = route.params;
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
          <SafeAreaView style={{marginTop:10, marginRight: 10, marginLeft: 10 }}>
             <View>
-               <HeaderNav />
+               <HeaderNav user={user} />
             </View>
             <View style={styles.container} >
                <View style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}>

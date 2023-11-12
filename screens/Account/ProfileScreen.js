@@ -7,34 +7,35 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 const ProfileScreen = ({ route }) => {
-   const ipv4 = "192.168.1.22";
+   const ipv4 = "172.20.10.4";
+   // const ipv4 = "192.168.1.22";
    const { user } = route.params;
-   const [profile, setProfile] = useState({});
-   const fetchUserProfile = async () => {
-      try {
-         const response = await fetch(`http://${ipv4}:8080/user/search/findByEmail?email=${user.email}`);
-         const json = await response.json();
-         console.log(json);
-         setProfile(json);
-      } catch (error) {
-         console.error("Lỗi:", error);
-      }
-   };
+   // const [profile, setProfile] = useState({});
+   // const fetchUserProfile = async () => {
+   //    try {
+   //       const response = await fetch(`http://${ipv4}:8080/user/search/findByEmail?email=${user.email}`);
+   //       const json = await response.json();
+   //       console.log(json);
+   //       setProfile(json);
+   //    } catch (error) {
+   //       console.error("Lỗi:", error);
+   //    }
+   // };
 
-   useEffect(() => {
-      fetchUserProfile();
-   }, [user]);
+   // useEffect(() => {
+   //    fetchUserProfile();
+   // }, [user]);
 
    return (
       <LinearGradient colors={["#000", "#001"]} style={{ flex: 1, paddingBottom: 60 }}>
          <ScrollView style={{ marginTop: 30 }}>
             <View style={{ display: 'flex', flexDirection: "row", alignItems: "center", gap: 10, paddingLeft: 20 }}>
-               <Image source={{ uri: user.imageData }} style={{ height: 50, width: 50, borderRadius: 50 }} />
+               <Image source={{ uri: user.image }} style={{ height: 50, width: 50, borderRadius: 50 }} />
                <View style={{ flex: 1 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                      <View>
-                        <Text style={{ color: "#fff", fontSize: 16 }}>{profile.userName}</Text>
-                        <Text style={{ color: "#fff", fontSize: 16 }}>{profile.email}</Text>
+                        <Text style={{ color: "#fff", fontSize: 16 }}>{user.userName}</Text>
+                        <Text style={{ color: "#fff", fontSize: 16 }}>{user.email}</Text>
                      </View>
                   </View>
                </View>

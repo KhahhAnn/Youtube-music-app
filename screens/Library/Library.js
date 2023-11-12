@@ -5,12 +5,13 @@ import HeaderLibary from './components/header';
 import OptionLibrary from './components/OptionLibrary';
 import Content from './components/Content';
 
-const LibraryScreen = () => {
+const LibraryScreen = ({route}) => {
+   const {user} = route.params;
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1, paddingBottom: 60 }}>
          <ScrollView>
             <SafeAreaView style={{ marginTop: 10, marginRight: 10, marginLeft: 10 }}>
-               <HeaderLibary />
+               <HeaderLibary user={user} />
                <OptionLibrary />
                <Content />
             </SafeAreaView>

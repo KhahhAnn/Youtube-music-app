@@ -6,7 +6,8 @@ import Button from './Button';
 import COLORS from '../constant/COLORS';
 
 const Register = ({ navigation }) => {
-   const ipv4 = "192.168.1.22";
+   const ipv4 = "172.20.10.4";
+   // const ipv4 = "192.168.1.22";
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [passwordConfirm, setPasswordConfirm] = useState('');

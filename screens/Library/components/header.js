@@ -3,7 +3,7 @@ import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-const HeaderLibary = () => {
+const HeaderLibary = ({user}) => {
    return (
       <View style={styles.headerContainer}>
          <View style={styles.headerItem}>
@@ -12,7 +12,7 @@ const HeaderLibary = () => {
          <View style={styles.headerItem}>
             <MaterialIcons name="history" size={28} color="white" style={{ marginRight: 20 }}/>
             <AntDesign name="search1" size={22} color="white" style={{ marginRight: 20 }} />
-            <Image style={styles.icon} source={{ uri: "https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg" }} />
+            <Image style={styles.icon} source={{ uri: user.image }} />
          </View>
       </View>
    );
