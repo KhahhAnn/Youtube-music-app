@@ -2,15 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { MYIP } from '../../constant/Utils';
 
 const Recap = ({item}) => {
-   // const ipv4 = "192.168.43.194";
-   // const ipv4 = "172.20.10.3";
-   const ipv4 = "172.20.10.4";
-   // const ipv4 = "192.168.51.102";
-   // const ipv4 = "10.0.37.50";
-   // const ipv4 = "192.168.1.22";
-
+   const ipv4 = MYIP.Myip;
 
    const [recap, setRecap] = useState([]);
    const navigation = useNavigation();

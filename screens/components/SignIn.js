@@ -1,13 +1,15 @@
-import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
+import { Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import Button from './Button';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import COLORS from '../constant/COLORS';
+import { MYIP } from '../constant/Utils';
+import Button from './Button';
 
 const Login = ({ navigation }) => {
-   const ipv4 = "172.20.10.4";
-   // const ipv4 = "192.168.1.22";
+   const ipv4 = MYIP.Myip;
+
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
@@ -15,6 +17,7 @@ const Login = ({ navigation }) => {
 
    const handleSignIn = async () => {
       const endpoint = `http://${ipv4}:8080/account/sign-in`;
+
       try {
          const response = await fetch(endpoint, {
             method: 'POST',
@@ -27,34 +30,39 @@ const Login = ({ navigation }) => {
             }),
          });
 
-         if (response.ok) {
-            const userResponse = await fetch(`http://${ipv4}:8080/user/search/findByEmail?email=${email}`);
-            const userJson = await userResponse.json();
-            navigation.navigate(
-               "Main",
-               { screen: 'Profile', params: { user: userJson } }
-            );
-            navigation.navigate(
-               "Main",
-               { screen: 'Library', params: { user: userJson } },
-            );
-            navigation.navigate(
-               "Main",
-               { screen: 'Upgrade', params: { user: userJson } },
-            );
-            navigation.navigate(
-               "Main",
-               { screen: 'Explore', params: { user: userJson } },
-            );
-            navigation.navigate(
-               "Main",
-               { screen: 'Home', params: { user: userJson } },
-            );
-         } else {
-            setError("Mật khẩu hoặc tài khoản sai");
+         if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Error:', response.status, errorText);
+            throw new Error("Mật khẩu hoặc tài khoản sai");
          }
+
+         const userResponse = await fetch(`http://${ipv4}:8080/user/search/findByEmail?email=${email}`);
+         const userJson = await userResponse.json();
+
+         // Log the user data to ensure it's received correctly
+         console.log('User data received:', userJson);
+
+         // Store user data in AsyncStorage
+         _storeData(userJson);
+
+         // Navigate to the "Main" screen
+         navigation.navigate("Main");
+
+         // Log success message
+         console.log('User data stored:', userJson);
       } catch (error) {
-         setError("Mật khẩu hoặc tài khoản sai");
+         console.error('Error during sign-in:', error.message);
+         setError(error.message);
+      }
+   };
+
+   const _storeData = async (userData) => {
+      try {
+         // Store user data in AsyncStorage
+         await AsyncStorage.setItem("userStore", JSON.stringify(userData));
+      } catch (error) {
+         // Log an error if storing data fails
+         console.error('Error storing user data:', error.message);
       }
    };
 
@@ -68,13 +76,13 @@ const Login = ({ navigation }) => {
                   marginVertical: 12,
                   color: COLORS.black
                }}>
-                  Hi Welcome Back ! 👋
+                  Hi Welcome Back! 👋
                </Text>
 
                <Text style={{
                   fontSize: 16,
                   color: COLORS.black
-               }}>Hello again you have been missed!</Text>
+               }}>Hello again, you have been missed!</Text>
             </View>
 
             <View style={{ marginBottom: 12 }}>
@@ -140,22 +148,13 @@ const Login = ({ navigation }) => {
                         right: 12
                      }}
                   >
-                     {
-                        isPasswordShown == true ? (
-                           <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                        ) : (
-                           <Ionicons name="eye" size={24} color={COLORS.black} />
-                        )
-                     }
-
+                     {isPasswordShown ? (
+                        <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                     ) : (
+                        <Ionicons name="eye" size={24} color={COLORS.black} />
+                     )}
                   </TouchableOpacity>
                </View>
-            </View>
-
-            <View style={{
-               flexDirection: 'row',
-               marginVertical: 6
-            }}>
             </View>
 
             <Button
@@ -167,9 +166,11 @@ const Login = ({ navigation }) => {
                }}
                onPress={handleSignIn}
             />
+
             {error ? (
-               <Text style={{ color: 'red', marginBottom: 10, fontSize: 18, textAlign:"center", marginTop: 10 }}>{error}</Text>
+               <Text style={{ color: 'red', marginBottom: 10, fontSize: 18, textAlign: "center", marginTop: 10 }}>{error}</Text>
             ) : null}
+
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
                <View
                   style={{
@@ -217,7 +218,6 @@ const Login = ({ navigation }) => {
                      }}
                      resizeMode='contain'
                   />
-
                   <Text>Facebook</Text>
                </TouchableOpacity>
 
@@ -244,7 +244,6 @@ const Login = ({ navigation }) => {
                      }}
                      resizeMode='contain'
                   />
-
                   <Text>Google</Text>
                </TouchableOpacity>
             </View>
@@ -254,7 +253,7 @@ const Login = ({ navigation }) => {
                justifyContent: "center",
                marginVertical: 22
             }}>
-               <Text style={{ fontSize: 16, color: COLORS.black }}>Don't have an account ? </Text>
+               <Text style={{ fontSize: 16, color: COLORS.black }}>Don't have an account? </Text>
                <Pressable
                   onPress={() => navigation.navigate("Register")}
                >
@@ -268,7 +267,7 @@ const Login = ({ navigation }) => {
             </View>
          </View>
       </SafeAreaView>
-   )
-}
+   );
+};
 
-export default Login
+export default Login;

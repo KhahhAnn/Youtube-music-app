@@ -33,8 +33,6 @@ const VideoDetail = ({ route }) => {
          />
          <View style={styles.controls}>
             <Button title={isPlaying ? "Pause" : "Play"} onPress={() => setIsPlaying(!isPlaying)} />
-            {/* Nút Stop nếu bạn muốn thêm */}
-            {/* <Button title="Stop" onPress={() => videoRef.current.stopAsync()} /> */}
          </View>
       </LinearGradient>
    );

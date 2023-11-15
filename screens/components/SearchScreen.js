@@ -1,24 +1,25 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
-import { FlatList, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { Feather, Entypo, AntDesign } from '@expo/vector-icons';
+import React, { useEffect, useRef, useState } from "react";
+import { FlatList, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { AntDesign, Entypo, Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { MYIP } from "../constant/Utils";
 
 const SearchScreen = ({ route }) => {
-   // const ipv4 = "192.168.43.194";
-   // const ipv4 = "172.20.10.3";
-   const ipv4 = "172.20.10.4";
-   // const ipv4 = "192.168.51.102";
-   // const ipv4 = "10.0.37.50";
-   // const ipv4 = "192.168.1.22";
-
-
+   const ipv4 = MYIP.Myip;
+   
    const { query: initialQuery } = route.params;
    const navigation = useNavigation();
    const [searchSong, setSearchSong] = useState([]);
+   const [displayedSongs, setDisplayedSongs] = useState([]);
    const [newQuery, setNewQuery] = useState(initialQuery);
    const [searchMode, setSearchMode] = useState(false);
+   const [isLoadingMore, setIsLoadingMore] = useState(false);
    const ref = useRef();
+
+   useEffect(() => {
+      topList(newQuery);
+   }, [newQuery]);
 
    const onSearch = (query) => {
       if (searchMode) {
@@ -36,20 +37,34 @@ const SearchScreen = ({ route }) => {
       onSearch(newQuery);
       Keyboard.dismiss();
    };
+
    const topList = async (searchQuery) => {
       try {
          const response = await fetch(`http://${ipv4}:8080/song/search/findBySongNameContaining?songName=${searchQuery}`);
          const json = await response.json();
          setSearchSong(json._embedded.songs);
+         // Ban đầu, hiển thị 10 bài hát đầu tiên
+         setDisplayedSongs(json._embedded.songs.slice(0, 10));
       } catch (error) {
          console.error("Error:", error);
       }
    };
 
-   useEffect(() => {
-      console.log(newQuery);
-      topList(newQuery);
-   }, [newQuery]);
+   // Hàm để thêm bài hát mới vào danh sách hiển thị
+   const loadMoreSongs = async () => {
+      try {
+         setIsLoadingMore(true);
+         const currentLength = displayedSongs.length;
+         const newSongs = searchSong.slice(currentLength, currentLength + 10);
+         // Giả lập thời gian chờ khi tải thêm (nên thay thế bằng hàm fetch thực tế)
+         await new Promise(resolve => setTimeout(resolve, 2000));
+         setDisplayedSongs((prevSongs) => [...prevSongs, ...newSongs]);
+      } catch (error) {
+         console.error("Error loading more songs:", error);
+      } finally {
+         setIsLoadingMore(false);
+      }
+   };
 
    const renderSongItem = ({ item }) => {
       return (
@@ -113,16 +128,31 @@ const SearchScreen = ({ route }) => {
       );
    };
 
+   const renderFooter = () => {
+      if (isLoadingMore) {
+         return (
+            <View style={styles.loadMoreButton}>
+               <Text style={styles.loadMoreText}>Loading...</Text>
+            </View>
+         );
+      } else {
+         return null;
+      }
+   };
+
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={styles.container}>
          {renderHeader()}
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.songList}>
                <FlatList
-                  data={searchSong}
+                  data={displayedSongs}
                   renderItem={renderSongItem}
                   numColumns={1}
                   keyExtractor={(item, index) => index.toString()}
+                  onEndReached={loadMoreSongs} 
+                  onEndReachedThreshold={0.1} 
+                  ListFooterComponent={renderFooter} 
                />
             </View>
          </ScrollView>
@@ -143,6 +173,7 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "space-between",
       marginLeft: 5,
+      width: 400
    },
    songItemText: {
       flexDirection: "row",
@@ -203,6 +234,16 @@ const styles = StyleSheet.create({
       width: 30,
       height: 30,
       borderRadius: 50,
+   },
+   loadMoreButton: {
+      alignItems: 'center',
+      paddingVertical: 10,
+      backgroundColor: '#ddd',
+      borderRadius: 10,
+   },
+   loadMoreText: {
+      color: '#000',
+      fontSize: 16
    },
 });
 
