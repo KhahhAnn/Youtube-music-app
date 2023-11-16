@@ -39,16 +39,12 @@ const Login = ({ navigation }) => {
          const userResponse = await fetch(`http://${ipv4}:8080/user/search/findByEmail?email=${email}`);
          const userJson = await userResponse.json();
 
-         // Log the user data to ensure it's received correctly
          console.log('User data received:', userJson);
 
-         // Store user data in AsyncStorage
          _storeData(userJson);
 
-         // Navigate to the "Main" screen
          navigation.navigate("Main");
 
-         // Log success message
          console.log('User data stored:', userJson);
       } catch (error) {
          console.error('Error during sign-in:', error.message);
@@ -58,10 +54,8 @@ const Login = ({ navigation }) => {
 
    const _storeData = async (userData) => {
       try {
-         // Store user data in AsyncStorage
          await AsyncStorage.setItem("userStore", JSON.stringify(userData));
       } catch (error) {
-         // Log an error if storing data fails
          console.error('Error storing user data:', error.message);
       }
    };

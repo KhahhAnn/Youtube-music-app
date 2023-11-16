@@ -44,11 +44,9 @@ const SongDetail = ({ route }) => {
       if (sound) {
          if (isPlaying) {
             await sound.pauseAsync();
-            // Stop the rotation animation
             animateImage(true, true);
          } else {
             await sound.playAsync();
-            // Start the rotation animation
             animateImage(true, false);
          }
          setIsPlaying(!isPlaying);
@@ -59,7 +57,6 @@ const SongDetail = ({ route }) => {
          );
          setSound(newSound);
          setIsPlaying(true);
-         // Start the rotation animation
          animateImage(true);
       }
    };
@@ -70,7 +67,7 @@ const SongDetail = ({ route }) => {
             0: {
                translateX: 0,
                translateY: 0,
-               rotate: reset ? '360deg' : '0deg', 
+               rotate: reset ? '360deg' : '0deg',
             },
             1: {
                translateX: 0,
@@ -78,7 +75,7 @@ const SongDetail = ({ route }) => {
                rotate: '360deg',
             },
          };
-   
+
          imageRef.current?.animate(animationConfig, 8000, 0, 'linear');
       }
    };
@@ -193,7 +190,6 @@ const SongDetail = ({ route }) => {
                      }}
                   >
                      <Pressable>
-                        {/* Your existing shuffle icon */}
                      </Pressable>
                      <Pressable>
                         <Ionicons
@@ -223,7 +219,6 @@ const SongDetail = ({ route }) => {
                         <Ionicons name="play-skip-forward" size={24} color="white" />
                      </Pressable>
                      <Pressable>
-                        {/* Your existing repeat icon */}
                      </Pressable>
                   </View>
                </View>

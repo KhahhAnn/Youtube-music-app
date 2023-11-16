@@ -3,14 +3,17 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Button, Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { MYIP } from '../../constant/Utils';
+import SkeletonLoader from '../../components/SkeletonLoader';
 
 const Content = ({ item }) => {
    const ipv4 = MYIP.Myip;
 
    const [albums, setAlbums] = useState([]);
    const [isModalVisible, setModalVisible] = useState(false);
-   const [newAlbum, setNewAlbum] = useState({ albumName: '', description: ""});
+   const [newAlbum, setNewAlbum] = useState({ albumName: '', description: "" });
    const navigation = useNavigation();
+   const [loading, setLoading] = useState(true);
+
 
    const albumList = async () => {
       try {
@@ -19,6 +22,8 @@ const Content = ({ item }) => {
          return setAlbums(json._embedded.albums);
       } catch (error) {
          console.error("Error:", error);
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -73,7 +78,9 @@ const Content = ({ item }) => {
                <AntDesign name="appstore-o" size={24} color="white" />
             </TouchableOpacity>
          </View>
-         {albums.map((item, index) => (
+         {loading ? (
+            <SkeletonLoader />
+         ) : (albums.map((item, index) => (
             <View key={index} style={styles.trendingListContainer}>
                <View style={styles.flexRow}>
                   <TouchableOpacity style={{ display: "flex", gap: 5, flexDirection: "row", alignItems: "center" }} onPress={() => navigation.navigate("AlbumDetail", { album: item })}>
@@ -86,7 +93,7 @@ const Content = ({ item }) => {
                   <Feather name="more-vertical" size={24} color="white" style={{ marginLeft: 20 }} />
                </View>
             </View>
-         ))}
+         )))}
          <TouchableOpacity style={{ display: 'flex', flexDirection: "row", alignItems: "center", backgroundColor: "white", maxWidth: 150, padding: 10, borderRadius: 20, left: 230 }} onPress={toggleModal}>
             <AntDesign name="plus" size={20} color="black" />
             <Text style={{ color: "black", fontSize: 18 }}>New playlists</Text>

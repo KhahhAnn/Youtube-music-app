@@ -1,14 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MYIP } from '../../constant/Utils';
+import SkeletonLoader from '../../components/SkeletonLoader';
 
-const Recap = ({item}) => {
+const Recap = ({ item }) => {
    const ipv4 = MYIP.Myip;
 
    const [recap, setRecap] = useState([]);
+   const [loading, setLoading] = useState(true);
    const navigation = useNavigation();
+
    const recapList = async () => {
       try {
          const response = await fetch(`http://${ipv4}:8080/albums/search/findByIsRecapTrue`);
@@ -20,25 +23,31 @@ const Recap = ({item}) => {
          }
       } catch (error) {
          console.error("Error:", error);
+      } finally {
+         setLoading(false);
       }
    };
+
    useEffect(() => {
       recapList();
    }, [recap]);
+
    const render = ({ item }) => {
-      console.log("Rendering item:", item);
       return (
          <View style={styles.recapListContainer}>
             <TouchableOpacity style={{ display: "flex", gap: 5 }} onPress={() => navigation.navigate("AlbumDetail", { album: item })}>
-               <Image source={{ uri: item.image }} style={styles.recapImg} />
-               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
-               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>
+               <>
+                  <Image source={{ uri: item.image }} style={styles.recapImg} />
+                  <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
+                  <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>
+               </>
             </TouchableOpacity>
          </View>
       );
-   }
+   };
+
    return (
-      <ScrollView >
+      <ScrollView>
          <View style={styles.recapContainer}>
             <View style={{ display: "flex", flexDirection: "row", gap: 10, alignItems: "center" }}>
                <AntDesign name="banckward" size={24} color="black" style={styles.icon} />
@@ -48,19 +57,22 @@ const Recap = ({item}) => {
                <Text style={styles.moreText}>Xem Thêm</Text>
             </TouchableOpacity>
          </View>
-         <View>
-            <FlatList
-               data={recap}
-               renderItem={render}
-               keyExtractor={(item, index) => index.toString()}
-               horizontal={true}
-               showsHorizontalScrollIndicator={false}
-            />
-         </View>
+         {loading ? (
+            <SkeletonLoader />
+         ) : (
+            <View>
+               <FlatList
+                  data={recap}
+                  renderItem={render}
+                  keyExtractor={(item, index) => index.toString()}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+               />
+            </View>
+         )}
       </ScrollView>
    );
-}
-
+};
 
 const styles = StyleSheet.create({
    recapContainer: {
@@ -105,8 +117,9 @@ const styles = StyleSheet.create({
    },
    recapImg: {
       width: 180,
-      height: 180
+      height: 180,
+      borderRadius: 10,
    }
-})
+});
 
 export default Recap;

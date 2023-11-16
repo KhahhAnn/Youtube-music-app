@@ -3,14 +3,15 @@ import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { MYIP } from '../../constant/Utils';
+import SkeletonLoader from '../../components/SkeletonLoader';
 
-const RecommendRadio = ({item}) => {
+const RecommendRadio = ({ item }) => {
    const ipv4 = MYIP.Myip;
 
-
-
    const [recommend, setRecommend] = useState([]);
+   const [loading, setLoading] = useState(true);
    const navigation = useNavigation();
+
    const recommendList = async () => {
       try {
          const response = await fetch(`http://${ipv4}:8080/albums/search/findByIsRadioTrue`);
@@ -18,29 +19,40 @@ const RecommendRadio = ({item}) => {
          if (JSON.stringify(json._embedded.albums) !== JSON.stringify(recommend)) {
             setRecommend(json._embedded.albums);
          } else {
-            console.log("No change in recomment data.");
+            console.log("No change in recommend data.");
          }
       } catch (error) {
          console.error("Error:", error);
+      } finally {
+         setLoading(false);
       }
    };
+
    useEffect(() => {
       recommendList();
    }, [recommend]);
+
    const render = ({ item }) => {
       return (
          <View style={styles.RecommendedListContainer}>
             <TouchableOpacity style={{ display: "flex", gap: 5 }} onPress={() => navigation.navigate("AlbumDetail", { album: item })}>
-               <AntDesign name="playcircleo" size={16} color="#918ca9" style={styles.icon} />
-               <Image source={{ uri: item.image }} style={styles.RecommendedImg} />
-               <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
-               <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>
+               {loading ? (
+                  <SkeletonLoader />
+               ) : (
+                  <>
+                     <AntDesign name="playcircleo" size={16} color="#918ca9" style={styles.icon} />
+                     <Image source={{ uri: item.image }} style={styles.RecommendedImg} />
+                     <Text style={{ fontSize: 18, fontWeight: '600', color: "#fff", maxWidth: 180 }}>{item.albumName}</Text>
+                     <Text style={{ fontSize: 14, color: "#ccc", maxWidth: 180 }}>{item.description}</Text>
+                  </>
+               )}
             </TouchableOpacity>
          </View>
       );
-   }
+   };
+
    return (
-      <ScrollView >
+      <ScrollView>
          <View style={styles.RecommendedContainer}>
             <View style={{ display: "flex", flexDirection: "row", gap: 10, alignItems: "center" }}>
                <Text style={styles.RecommendedText}>Recommended radios</Text>
@@ -57,8 +69,7 @@ const RecommendRadio = ({item}) => {
          </View>
       </ScrollView>
    );
-}
-
+};
 
 const styles = StyleSheet.create({
    RecommendedContainer: {
@@ -108,6 +119,6 @@ const styles = StyleSheet.create({
       height: "100%",
       maxHeight: 180
    }
-})
+});
 
 export default RecommendRadio;

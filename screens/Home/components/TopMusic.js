@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { MYIP } from '../../constant/Utils';
+import SkeletonLoader from '../../components/SkeletonLoader';
 
 
 const TopMusic = ({ item }) => {
@@ -13,6 +14,8 @@ const TopMusic = ({ item }) => {
    const [topMusicList, setTopMusicList] = useState([])
    const navigation = useNavigation();
    const [menuVisibility, setMenuVisibility] = useState({});
+   const [loading, setLoading] = useState(true);
+
    const toggleMenu = (itemId) => {
       setMenuVisibility({
          ...menuVisibility,
@@ -30,6 +33,8 @@ const TopMusic = ({ item }) => {
          }
       } catch (error) {
          console.error("Error:", error);
+      } finally {
+         setLoading(false);
       }
    };
    useEffect(() => {
@@ -101,13 +106,17 @@ const TopMusic = ({ item }) => {
             </View>
          </View>
          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <FlatList
-               data={topMusicList}
-               renderItem={render}
-               numColumns={2}
-               keyExtractor={(item, index) => index.toString()}
-               columnWrapperStyle={{ flex: 1, justifyContent: 'space-between' }}
-            />
+            {loading ? (
+               <SkeletonLoader />
+            ) : (
+               <FlatList
+                  data={topMusicList}
+                  renderItem={render}
+                  numColumns={2}
+                  keyExtractor={(item, index) => index.toString()}
+                  columnWrapperStyle={{ flex: 1, justifyContent: 'space-between' }}
+               />
+            )}
          </ScrollView>
       </ScrollView>
    );

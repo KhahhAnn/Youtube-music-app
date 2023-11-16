@@ -1,10 +1,8 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
-import { AntDesign } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
+import { Pressable, SafeAreaView, Text, View } from "react-native";
 import YoutubeMusicLogo from "../../logo/logoMusic";
 
 function LoginScreen() {

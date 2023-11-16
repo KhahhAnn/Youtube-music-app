@@ -2,12 +2,15 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MYIP } from '../../constant/Utils';
+import SkeletonLoader from '../../components/SkeletonLoader';
 
 const TrendingPlaylists = ({ item }) => {
    const ipv4 = MYIP.Myip;
 
    const [trending, setTrending] = useState([]);
    const navigation = useNavigation();
+   const [loading, setLoading] = useState(true);
+
    const trendingList = async () => {
       try {
          const response = await fetch(`http://${ipv4}:8080/albums/search/findByIsPlaylistTrue`);
@@ -19,6 +22,8 @@ const TrendingPlaylists = ({ item }) => {
          }
       } catch (error) {
          console.error("Error:", error);
+      } finally {
+         setLoading(false);
       }
    };
    useEffect(() => {
@@ -44,15 +49,19 @@ const TrendingPlaylists = ({ item }) => {
                <Text style={styles.trendingText}>Trending community playlists</Text>
             </View>
          </View>
-         <View>
-            <FlatList
-               data={trending}
-               renderItem={render}
-               keyExtractor={(item, index) => index.toString()}
-               horizontal={true}
-               showsHorizontalScrollIndicator={false}
-            />
-         </View>
+         {loading ? (
+            <SkeletonLoader />
+         ) : (
+            <View>
+               <FlatList
+                  data={trending}
+                  renderItem={render}
+                  keyExtractor={(item, index) => index.toString()}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+               />
+            </View>
+         )}
       </ScrollView >
    );
 }

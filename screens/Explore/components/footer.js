@@ -3,12 +3,15 @@ import { AntDesign } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MYIP } from '../../constant/Utils';
+import SkeletonLoader from '../../components/SkeletonLoader';
 
 
-const Footer = ({item}) => {
+const Footer = ({ item }) => {
    const ipv4 = MYIP.Myip;
    const navigation = useNavigation();
    const [video, setVideo] = useState([]);
+   const [loading, setLoading] = useState(true);
+
    const videoList = async () => {
       try {
          const response = await fetch(`http://${ipv4}:8080/video`);
@@ -20,6 +23,8 @@ const Footer = ({item}) => {
          }
       } catch (error) {
          console.error("Error:", error);
+      } finally {
+         setLoading(false);
       }
    };
    useEffect(() => {
@@ -45,13 +50,17 @@ const Footer = ({item}) => {
             </View>
          </View>
          <View>
-            <FlatList
-               data={video}
-               renderItem={render}
-               keyExtractor={(item, index) => index.toString()}
-               horizontal={true}
-               showsHorizontalScrollIndicator={false}
-            />
+            {loading ? (
+               <SkeletonLoader />
+            ) : (
+               <FlatList
+                  data={video}
+                  renderItem={render}
+                  keyExtractor={(item, index) => index.toString()}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+               />
+            )}
          </View>
       </ScrollView>
    );

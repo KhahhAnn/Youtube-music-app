@@ -7,12 +7,15 @@ import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { MYIP } from '../../constant/Utils';
+import SkeletonLoader from '../../components/SkeletonLoader';
 
 const HitToday = ({ item }) => {
    const ipv4 = MYIP.Myip;
 
    const [hitTodayList, setHitTodayList] = useState([])
+   const [loading, setLoading] = useState(true);
    const navigation = useNavigation();
+
    const hitList = async () => {
       try {
          const response = await fetch(`http://${ipv4}:8080/song/search/findByIsHitTodayTrue?page=&size=${hitTodayList.length}`);
@@ -24,11 +27,15 @@ const HitToday = ({ item }) => {
          }
       } catch (error) {
          console.error("Error:", error);
+      } finally {
+         setLoading(false); // Set loading to false after fetching data
       }
    };
+
    useEffect(() => {
       hitList();
    }, [hitTodayList]);
+
    return (
       <ScrollView>
          <LinearGradient colors={["rgba(202,239,215,0.7)", "rgba(245,191,215,0.7)", "rgba(171,201,233,0.7)"]} style={styles.container}>
@@ -39,7 +46,9 @@ const HitToday = ({ item }) => {
                   <Text style={styles.text}>Youtube Music</Text>
                </View>
             </View>
-            {
+            {loading ? (
+               <SkeletonLoader />
+            ) : (
                hitTodayList.map((hit, index) => (
                   <TouchableOpacity key={index} style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 10 }} onPress={() => navigation.navigate("SongDetail", { song: hit })}>
                      <Image source={{ uri: hit.image }} style={{ width: 50, height: 50 }} />
@@ -49,7 +58,7 @@ const HitToday = ({ item }) => {
                      </View>
                   </TouchableOpacity>
                ))
-            }
+            )}
             <View style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 30 }}>
                <TouchableOpacity>
                   <AntDesign name="caretright" size={16} color="black" style={{ ...styles.icon, backgroundColor: "rgba(160,160,160,0.9)", color: "white" }} />
@@ -65,6 +74,7 @@ const HitToday = ({ item }) => {
       </ScrollView>
    );
 }
+
 const styles = StyleSheet.create({
    container: {
       marginLeft: 5,
@@ -101,4 +111,5 @@ const styles = StyleSheet.create({
       alignItems: "center"
    }
 })
+
 export default HitToday;
