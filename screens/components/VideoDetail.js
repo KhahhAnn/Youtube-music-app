@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Video } from 'expo-av';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const VideoDetail = ({ route }) => {
    const { video } = route.params;
@@ -17,23 +18,26 @@ const VideoDetail = ({ route }) => {
 
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1, paddingBottom: 60 }}>
-         <Text style={styles.title}>React Native Video Example</Text>
-         <Video
-            ref={videoRef}
-            source={{ uri: video.videoData }}
-            rate={1.0}
-            volume={1.0}
-            isMuted={false}
-            resizeMode="cover"
-            shouldPlay={isPlaying}
-            isLooping
-            useNativeControls={false}
-            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-            style={styles.video}
-         />
-         <View style={styles.controls}>
-            <Button title={isPlaying ? "Pause" : "Play"} onPress={() => setIsPlaying(!isPlaying)} />
-         </View>
+         <SafeAreaView>
+
+            <Text style={styles.title}>React Native Video Example</Text>
+            <Video
+               ref={videoRef}
+               source={{ uri: video.videoData }}
+               rate={1.0}
+               volume={1.0}
+               isMuted={false}
+               resizeMode="cover"
+               shouldPlay={isPlaying}
+               isLooping
+               useNativeControls={false}
+               onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+               style={styles.video}
+            />
+            <View style={styles.controls}>
+               <Button title={isPlaying ? "Pause" : "Play"} onPress={() => setIsPlaying(!isPlaying)} />
+            </View>
+         </SafeAreaView>
       </LinearGradient>
    );
 };

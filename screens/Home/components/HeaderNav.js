@@ -1,7 +1,7 @@
 // HeaderNav.js
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../../components/SearchBar';
 
@@ -19,7 +19,7 @@ const HeaderNav = ({user}) => {
    };
 
    return (
-      <View style={styles.headerContainer}>
+      <SafeAreaView style={styles.headerContainer}>
          <View style={styles.headerItem}>
             <Entypo name="youtube-with-circle" size={60} color="red" />
             <Text style={{ fontSize: 22, fontWeight: '700', color: 'white' }}>Music</Text>
@@ -42,7 +42,7 @@ const HeaderNav = ({user}) => {
                />
             )}
          </View>
-      </View>
+      </SafeAreaView>
    );
 };
 

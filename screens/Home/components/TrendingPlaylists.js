@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MYIP } from '../../constant/Utils';
 import SkeletonLoader from '../../components/SkeletonLoader';
 
@@ -42,27 +42,29 @@ const TrendingPlaylists = ({ item }) => {
       );
    }
    return (
-      <ScrollView >
-         <View style={styles.trendingContainer}>
-            <View style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-               <Text style={{ fontSize: 14, color: "#ccc", fontWeight: "bold" }}>FOR YOU</Text>
-               <Text style={styles.trendingText}>Trending community playlists</Text>
+      <SafeAreaView>
+         <ScrollView >
+            <View style={styles.trendingContainer}>
+               <View style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  <Text style={{ fontSize: 14, color: "#ccc", fontWeight: "bold" }}>FOR YOU</Text>
+                  <Text style={styles.trendingText}>Trending community playlists</Text>
+               </View>
             </View>
-         </View>
-         {loading ? (
-            <SkeletonLoader />
-         ) : (
-            <View>
-               <FlatList
-                  data={trending}
-                  renderItem={render}
-                  keyExtractor={(item, index) => index.toString()}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-               />
-            </View>
-         )}
-      </ScrollView >
+            {loading ? (
+               <SkeletonLoader />
+            ) : (
+               <View>
+                  <FlatList
+                     data={trending}
+                     renderItem={render}
+                     keyExtractor={(item, index) => index.toString()}
+                     horizontal={true}
+                     showsHorizontalScrollIndicator={false}
+                  />
+               </View>
+            )}
+         </ScrollView >
+      </SafeAreaView>
    );
 }
 const styles = StyleSheet.create({

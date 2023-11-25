@@ -2,7 +2,7 @@
 import { Feather, Entypo, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { MYIP } from '../../constant/Utils';
 import SkeletonLoader from '../../components/SkeletonLoader';
@@ -42,7 +42,7 @@ const TopMusic = ({ item }) => {
    }, [topMusicList]);
    const render = ({ item }) => {
       return (
-         <View style={styles.topSong}>
+         <SafeAreaView style={styles.topSong}>
             <View style={[styles.topSongText]}>
                <TouchableOpacity
                   style={{
@@ -92,14 +92,14 @@ const TopMusic = ({ item }) => {
                   </View>
                </TouchableOpacity>
             </View>
-         </View>
+         </SafeAreaView>
       );
    }
    return (
       <ScrollView>
          <View style={styles.headerBodyContainer}>
             <View style={{ marginTop: 5 }}>
-               <Text style={styles.headerBodyTextBold}>Top music videos</Text>
+               <Text style={styles.headerBodyTextBold}>Top musics</Text>
             </View>
             <View style={styles.buttonContainer}>
                <Text>Xem thêm</Text>
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       width: 100,
       height: 30,
-      marginLeft: 100,
+      marginLeft: 150,
       borderWidth: 1,
       borderColor: "white",
       marginTop: 10

@@ -28,7 +28,7 @@ const HitToday = ({ item }) => {
       } catch (error) {
          console.error("Error:", error);
       } finally {
-         setLoading(false); // Set loading to false after fetching data
+         setLoading(false);
       }
    };
 

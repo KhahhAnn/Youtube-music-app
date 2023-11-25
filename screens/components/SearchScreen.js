@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { AntDesign, Entypo, Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import { MYIP } from "../constant/Utils";
 
 const SearchScreen = ({ route }) => {
    const ipv4 = MYIP.Myip;
-   
+
    const { query: initialQuery } = route.params;
    const navigation = useNavigation();
    const [searchSong, setSearchSong] = useState([]);
@@ -142,20 +142,22 @@ const SearchScreen = ({ route }) => {
 
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={styles.container}>
-         {renderHeader()}
-         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.songList}>
-               <FlatList
-                  data={displayedSongs}
-                  renderItem={renderSongItem}
-                  numColumns={1}
-                  keyExtractor={(item, index) => index.toString()}
-                  onEndReached={loadMoreSongs} 
-                  onEndReachedThreshold={0.1} 
-                  ListFooterComponent={renderFooter} 
-               />
-            </View>
-         </ScrollView>
+         <SafeAreaView>
+            {renderHeader()}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+               <View style={styles.songList}>
+                  <FlatList
+                     data={displayedSongs}
+                     renderItem={renderSongItem}
+                     numColumns={1}
+                     keyExtractor={(item, index) => index.toString()}
+                     onEndReached={loadMoreSongs}
+                     onEndReachedThreshold={0.1}
+                     ListFooterComponent={renderFooter}
+                  />
+               </View>
+            </ScrollView>
+         </SafeAreaView>
       </LinearGradient>
    );
 };

@@ -1,11 +1,12 @@
 
 import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 import React from "react";
+import { SafeAreaView } from 'react-native';
 import { Image, StyleSheet, Text, View } from "react-native";
 
 const HeaderLibary = ({user}) => {
    return (
-      <View style={styles.headerContainer}>
+      <SafeAreaView style={styles.headerContainer}>
          <View style={styles.headerItem}>
             <Text style={{ fontSize: 26, fontWeight: "700", color: "white" }}>Library</Text>
          </View>
@@ -14,7 +15,7 @@ const HeaderLibary = ({user}) => {
             <AntDesign name="search1" size={22} color="white" style={{ marginRight: 20 }} />
             <Image style={styles.icon} source={{ uri: user.image }} />
          </View>
-      </View>
+      </SafeAreaView>
    );
 }
 const styles = StyleSheet.create({

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MYIP } from '../../constant/Utils';
 import SkeletonLoader from '../../components/SkeletonLoader';
@@ -47,30 +47,32 @@ const Recap = ({ item }) => {
    };
 
    return (
-      <ScrollView>
-         <View style={styles.recapContainer}>
-            <View style={{ display: "flex", flexDirection: "row", gap: 10, alignItems: "center" }}>
-               <AntDesign name="banckward" size={24} color="black" style={styles.icon} />
-               <Text style={styles.recapText}>Recap</Text>
+      <SafeAreaView>
+         <ScrollView>
+            <View style={styles.recapContainer}>
+               <View style={{ display: "flex", flexDirection: "row", gap: 10, alignItems: "center" }}>
+                  <AntDesign name="banckward" size={24} color="black" style={styles.icon} />
+                  <Text style={styles.recapText}>Recap</Text>
+               </View>
+               <TouchableOpacity>
+                  <Text style={styles.moreText}>Xem Thêm</Text>
+               </TouchableOpacity>
             </View>
-            <TouchableOpacity>
-               <Text style={styles.moreText}>Xem Thêm</Text>
-            </TouchableOpacity>
-         </View>
-         {loading ? (
-            <SkeletonLoader />
-         ) : (
-            <View>
-               <FlatList
-                  data={recap}
-                  renderItem={render}
-                  keyExtractor={(item, index) => index.toString()}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-               />
-            </View>
-         )}
-      </ScrollView>
+            {loading ? (
+               <SkeletonLoader />
+            ) : (
+               <View>
+                  <FlatList
+                     data={recap}
+                     renderItem={render}
+                     keyExtractor={(item, index) => index.toString()}
+                     horizontal={true}
+                     showsHorizontalScrollIndicator={false}
+                  />
+               </View>
+            )}
+         </ScrollView>
+      </SafeAreaView>
    );
 };
 

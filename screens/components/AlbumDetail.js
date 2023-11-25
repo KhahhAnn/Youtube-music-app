@@ -62,7 +62,7 @@ const AlbumDetail = ({ route }) => {
                      alignItems: "center",
                      maxWidth: 500
                   }}
-                  onPress={() => navigation.navigate("SongDetail", { song: item })}
+                  onPress={() => navigation.navigate("SongDetail", { song: item, playlist: songList })}
                >
                   <Image source={{ uri: item.image }} style={styles.startSongImage} />
                   <View style={{ marginLeft: 10, width: 240 }}>

@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Button, Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, Image, Modal, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { MYIP } from '../../constant/Utils';
 const CreateRadio = () => {
    const ipv4 = MYIP.Myip;
@@ -47,7 +47,7 @@ const CreateRadio = () => {
    };
 
    return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
          <Text style={{ fontSize: 12, color: "#ccc", fontWeight: "bold" }}>CREATE A RADIO</Text>
          <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}>Your music tuner</Text>
          <TouchableOpacity onPress={() => toggleModal()}>
@@ -83,7 +83,7 @@ const CreateRadio = () => {
                </View>
             </View>
          </Modal>
-      </View>
+      </SafeAreaView>
    );
 }
 

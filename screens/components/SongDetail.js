@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Audio } from "expo-av";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
 
 const SongDetail = ({ route }) => {
@@ -60,6 +60,42 @@ const SongDetail = ({ route }) => {
          animateImage(true);
       }
    };
+   const playNextSong = async () => {
+      const currentIndex = playlist.findIndex((item) => item.id === song.id);
+      const nextIndex = (currentIndex + 1) % playlist.length;
+      const nextSong = playlist[nextIndex];
+
+      // Unload current sound if it exists
+      if (sound) {
+         await sound.unloadAsync();
+      }
+
+      // Load and play the next song
+      const { sound: newSound } = await Audio.Sound.createAsync(
+         { uri: nextSong.songData },
+         { shouldPlay: true }
+      );
+      setSound(newSound);
+      setIsPlaying(true);
+      animateImage(true);
+   };
+   const playPreviousSong = async () => {
+      const currentIndex = playlist.findIndex((item) => item.id === song.id);
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
+      const previousSong = playlist[previousIndex];
+
+      if (sound) {
+         await sound.unloadAsync();
+      }
+
+      const { sound: newSound } = await Audio.Sound.createAsync(
+         { uri: previousSong.songData },
+         { shouldPlay: true }
+      );
+      setSound(newSound);
+      setIsPlaying(true);
+      animateImage(true);
+   };
 
    const animateImage = (shouldRotate, reset = false) => {
       if (shouldRotate) {
@@ -88,7 +124,7 @@ const SongDetail = ({ route }) => {
    };
 
    return (
-      <View swipeDirection={["up", "down"]} swipeThreshold={200}>
+      <SafeAreaView swipeDirection={["up", "down"]} swipeThreshold={200}>
          <LinearGradient colors={["#bdbdbd", "#151515"]}>
             <View
                style={{
@@ -191,7 +227,7 @@ const SongDetail = ({ route }) => {
                   >
                      <Pressable>
                      </Pressable>
-                     <Pressable>
+                     <Pressable onPress={playPreviousSong}>
                         <Ionicons
                            name="play-skip-back-sharp"
                            size={24}
@@ -215,7 +251,7 @@ const SongDetail = ({ route }) => {
                            color="black"
                         />
                      </TouchableOpacity>
-                     <Pressable>
+                     <Pressable onPress={playNextSong}>
                         <Ionicons name="play-skip-forward" size={24} color="white" />
                      </Pressable>
                      <Pressable>
@@ -224,7 +260,7 @@ const SongDetail = ({ route }) => {
                </View>
             </View>
          </LinearGradient>
-      </View>
+      </SafeAreaView>
    );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { MYIP } from '../../constant/Utils';
 import SkeletonLoader from '../../components/SkeletonLoader';
@@ -34,7 +34,7 @@ const RecommendRadio = ({ item }) => {
 
    const render = ({ item }) => {
       return (
-         <View style={styles.RecommendedListContainer}>
+         <SafeAreaView style={styles.RecommendedListContainer}>
             <TouchableOpacity style={{ display: "flex", gap: 5 }} onPress={() => navigation.navigate("AlbumDetail", { album: item })}>
                {loading ? (
                   <SkeletonLoader />
@@ -47,7 +47,7 @@ const RecommendRadio = ({ item }) => {
                   </>
                )}
             </TouchableOpacity>
-         </View>
+         </SafeAreaView>
       );
    };
 

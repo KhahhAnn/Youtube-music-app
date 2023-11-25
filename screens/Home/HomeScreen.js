@@ -46,7 +46,7 @@ const HomeScreen = () => {
                      <TrendingPlaylists />
                   </>
                ) : (
-                  <Text>Đang tải...</Text> 
+                  <Text>Đang tải...</Text>
                )}
             </SafeAreaView>
          </ScrollView>

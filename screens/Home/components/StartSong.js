@@ -2,13 +2,12 @@
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { MYIP } from '../../constant/Utils';
 import SkeletonLoader from '../../components/SkeletonLoader';
 
 
-// Define the StartSong component
 const StartSong = ({ user }) => {
    const navigation = useNavigation();
    const ipv4 = MYIP.Myip;
@@ -45,7 +44,7 @@ const StartSong = ({ user }) => {
 
    const render = ({ item }) => {
       return (
-         <View style={styles.startSong}>
+         <SafeAreaView style={styles.startSong}>
             <View style={[styles.startSongText]}>
                <TouchableOpacity
                   style={{
@@ -95,7 +94,7 @@ const StartSong = ({ user }) => {
                   </>
                </TouchableOpacity>
             </View>
-         </View>
+         </SafeAreaView>
       );
    };
 
@@ -182,7 +181,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       width: 100,
       height: 30,
-      marginLeft: 50,
+      marginLeft: 40,
       borderWidth: 1,
       borderColor: "white",
       marginTop: 10
