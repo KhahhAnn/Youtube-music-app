@@ -59,7 +59,7 @@ const Body = () => {
    }, [])
    const render = ({ item }) => {
       return (
-         <View style={{ ...styles.row, borderTopColor: item.color, maxWidth: 200 }}>
+         <View style={{ ...styles.row, borderTopColor: item.color, width: 250 }}>
             <TouchableOpacity style={{ ...styles.item, borderLeftColor: item.color }}>
                <Text style={styles.itemText}>{item.text}</Text>
             </TouchableOpacity>

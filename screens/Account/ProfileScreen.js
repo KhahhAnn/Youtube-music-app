@@ -19,7 +19,7 @@ const ProfileScreen = ({ route }) => {
             const parsedData = JSON.parse(storedData);
             setUser(parsedData);
          } catch (error) {
-            console.error('Lỗi khi lấy dữ liệu người dùng:', error.message);
+            console.log('Lỗi khi lấy dữ liệu người dùng:', error.message);
          }
       };
 

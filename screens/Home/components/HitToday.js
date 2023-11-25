@@ -61,7 +61,7 @@ const HitToday = ({ item }) => {
             )}
             <View style={{ display: "flex", flexDirection: "row", marginBottom: 20, alignItems: "center", gap: 30 }}>
                <TouchableOpacity>
-                  <AntDesign name="caretright" size={16} color="black" style={{ ...styles.icon, backgroundColor: "rgba(160,160,160,0.9)", color: "white" }} />
+                  <AntDesign name="caretright" size={16} color="black" style={{ ...styles.icon, color: "white" }} />
                </TouchableOpacity>
                <TouchableOpacity>
                   <Feather name="radio" size={16} color="black" style={styles.icon} />
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
    },
    text: {
       fontWeight: "bold",
-      fontSize: 19,
+      fontSize: 16,
       marginBottom: 5
    },
    iconPlay: {
@@ -103,8 +103,7 @@ const styles = StyleSheet.create({
    icon: {
       color: "#ccc",
       padding: 10,
-      borderRadius: 50,
-      backgroundColor: "rgba(0,0,0,0.5)",
+      borderRadius: 20,
       borderWidth: 0.5,
       borderColor: "#ccc",
       textAlign: "center",

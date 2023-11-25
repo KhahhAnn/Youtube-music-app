@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
       marginLeft: 5,
       marginRight: 5,
       maxHeight: 300,
+      marginBottom: 30
    },
    videoImg: {
       width: 180,

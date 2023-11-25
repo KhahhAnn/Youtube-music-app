@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
    icon: {
       position: 'absolute',
       bottom: 70,
-      left: 180,
+      left: 170,
       padding: 15,
       borderRadius: 35,
       backgroundColor: "#ddd",

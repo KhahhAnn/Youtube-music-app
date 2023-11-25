@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
       padding: 10,
       borderWidth: 2,
       borderColor: "#ccc",
-      borderRadius: 50,
+      borderRadius: 25,
       color: "#ccc",
       alignItems: "center",
       justifyContent: "center"
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
       padding: 5,
       borderWidth: 1,
       borderColor: "#ccc",
-      borderRadius: 20,
+      borderRadius: 15,
       textAlign: "center",
       alignItems: "center",
       marginTop: 10

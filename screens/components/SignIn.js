@@ -32,7 +32,7 @@ const Login = ({ navigation }) => {
 
          if (!response.ok) {
             const errorText = await response.text();
-            console.error('Error:', response.status, errorText);
+            console.log('Error:', response.status, errorText);
             throw new Error("Mật khẩu hoặc tài khoản sai");
          }
 
@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
 
          console.log('User data stored:', userJson);
       } catch (error) {
-         console.error('Error during sign-in:', error.message);
+         console.log('Error during sign-in:', error.message);
          setError(error.message);
       }
    };

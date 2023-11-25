@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
       left: 10,
       top: 5,
       padding: 5,
-      backgroundColor: "rgba(255,255,255, 0.8)",
-      borderRadius: 50
+      // backgroundColor: "rgba(255,255,255, 0.8)",
+      borderRadius: 50,
    },
    RecommendedText: {
       fontSize: 30,
