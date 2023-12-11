@@ -4,6 +4,7 @@ import { AntDesign, Entypo, Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { MYIP } from "../constant/Utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SearchScreen = ({ route }) => {
    const ipv4 = MYIP.Myip;
@@ -15,7 +16,24 @@ const SearchScreen = ({ route }) => {
    const [newQuery, setNewQuery] = useState(initialQuery);
    const [searchMode, setSearchMode] = useState(false);
    const [isLoadingMore, setIsLoadingMore] = useState(false);
+   const [hasMoreData, setHasMoreData] = useState(true);
    const ref = useRef();
+
+   const [user, setUser] = useState(null);
+
+   useEffect(() => {
+      const fetchUserData = async () => {
+         try {
+            const storedData = await AsyncStorage.getItem('userStore');
+            const parsedData = JSON.parse(storedData);
+            setUser(parsedData);
+         } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu người dùng:', error.message);
+         }
+      };
+
+      fetchUserData();
+   }, []);
 
    useEffect(() => {
       topList(newQuery);
@@ -28,7 +46,7 @@ const SearchScreen = ({ route }) => {
          navigation.navigate('SearchScreen', { query });
       }
       if (query.trim() === "") {
-         setSearchMode(false)
+         setSearchMode(false);
       }
    };
 
@@ -40,25 +58,30 @@ const SearchScreen = ({ route }) => {
 
    const topList = async (searchQuery) => {
       try {
-         const response = await fetch(`http://${ipv4}:8080/song/search/findBySongNameContaining?songName=${searchQuery}`);
+         const response = await fetch(`http://${ipv4}:8080/song/search/findBySongNameContainingAndAlbumNotId?songName=${searchQuery}`);
          const json = await response.json();
-         setSearchSong(json._embedded.songs);
-         // Ban đầu, hiển thị 10 bài hát đầu tiên
-         setDisplayedSongs(json._embedded.songs.slice(0, 10));
+         const initialSongs = json._embedded.songs.slice(0, 10);
+         setSearchSong(initialSongs);
+         setDisplayedSongs(initialSongs);
+         setHasMoreData(json._embedded.songs.length > 10);
       } catch (error) {
          console.error("Error:", error);
       }
    };
 
-   // Hàm để thêm bài hát mới vào danh sách hiển thị
    const loadMoreSongs = async () => {
       try {
+         if (!hasMoreData) {
+            setIsLoadingMore(false);
+            return;
+         }
+
          setIsLoadingMore(true);
          const currentLength = displayedSongs.length;
          const newSongs = searchSong.slice(currentLength, currentLength + 10);
-         // Giả lập thời gian chờ khi tải thêm (nên thay thế bằng hàm fetch thực tế)
          await new Promise(resolve => setTimeout(resolve, 2000));
          setDisplayedSongs((prevSongs) => [...prevSongs, ...newSongs]);
+         setHasMoreData(searchSong.length > currentLength + 10);
       } catch (error) {
          console.error("Error loading more songs:", error);
       } finally {
@@ -86,44 +109,49 @@ const SearchScreen = ({ route }) => {
    const renderHeader = () => {
       return (
          <View style={styles.headerContainer}>
-            <View style={styles.headerItem}>
-               <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                  <Entypo name="youtube-with-circle" size={60} color="red" />
-               </TouchableOpacity>
-               <Text style={styles.headerTitle}>Music</Text>
-            </View>
-            <View style={styles.headerItem}>
-               {!searchMode && (
-                  <View>
-                     <TouchableOpacity onPress={() => setSearchMode(true)}>
-                        <AntDesign name="search1" size={22} color="white" style={{ marginRight: 20 }} />
+            {user ? (
+               <>
+                  <View style={styles.headerItem}>
+                     <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+                        <Entypo name="youtube-with-circle" size={60} color="red" />
                      </TouchableOpacity>
+                     <Text style={styles.headerTitle}>Music</Text>
                   </View>
-               )}
-               {searchMode && (
-                  <View style={styles.container}>
-                     <TextInput
-                        style={styles.input}
-                        placeholder="Search for a song"
-                        value={newQuery}
-                        onChangeText={(text) => setNewQuery(text)}
-                        onSubmitEditing={(event) => handleSearch(event)}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        ref={ref}
-                     />
+                  <View style={styles.headerItem}>
+                     {!searchMode && (
+                        <View>
+                           <TouchableOpacity onPress={() => setSearchMode(true)}>
+                              <AntDesign name="search1" size={22} color="white" style={{ marginRight: 20 }} />
+                           </TouchableOpacity>
+                        </View>
+                     )}
+                     {searchMode && (
+                        <View style={styles.container}>
+                           <TextInput
+                              style={styles.input}
+                              placeholder="Search for a song"
+                              value={newQuery}
+                              onChangeText={(text) => setNewQuery(text)}
+                              onSubmitEditing={(event) => handleSearch(event)}
+                              autoCapitalize="none"
+                              autoCorrect={false}
+                              ref={ref}
+                           />
+                        </View>
+                     )}
+                     {!searchMode && (
+                        <Image
+                           style={styles.icon}
+                           source={{
+                              uri: user.image,
+                           }}
+                        />
+                     )}
                   </View>
-               )}
-               {!searchMode && (
-                  <Image
-                     style={styles.icon}
-                     source={{
-                        uri: 'https://yt3.ggpht.com/-63rHscXfHaY/AAAAAAAAAAI/AAAAAAAAAAA/i1lzd-3WrDU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg',
-                     }}
-                  />
-               )}
-
-            </View>
+               </>
+            ) : (
+               <Text>Đang tải...</Text>
+            )}
          </View>
       );
    };

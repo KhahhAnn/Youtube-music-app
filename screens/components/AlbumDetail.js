@@ -80,7 +80,7 @@ const AlbumDetail = ({ route }) => {
                            <TouchableOpacity onPress={async () => {
                               const songToAdd = item;
                               try {
-                                 const response = await fetch(`http://${ipv4}:8080/api/add-to-my-album`, {
+                                 await fetch(`http://${ipv4}:8080/api/add-to-my-album`, {
                                     method: 'POST',
                                     headers: {
                                        'Content-Type': 'application/json',

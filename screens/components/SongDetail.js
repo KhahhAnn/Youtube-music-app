@@ -6,17 +6,71 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef, useState } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
+import { MYIP } from "../constant/Utils";
 
 const SongDetail = ({ route }) => {
-   const { song } = route.params;
+   const { song, playlist } = route.params;
+   const ipv4 = MYIP.Myip;
    const navigation = useNavigation();
    const [sound, setSound] = useState();
+   const [curentSong, setCurentSong] = useState(song);
    const [isPlaying, setIsPlaying] = useState(false);
    const [position, setPosition] = useState(0);
    const [duration, setDuration] = useState(0);
+   const [isInAlbum, setIsInAlbum] = useState(false);
    const imageRef = useRef(null);
-   const [rotationProgress, setRotationProgress] = useState(0);
 
+   useEffect(() => {
+      const checkIsInAlbum = async () => {
+         try {
+            const albumResponse = await fetch(`http://${ipv4}:8080/albums/21/songList`);
+            const albumData = await albumResponse.json();
+            const isSongInAlbum = albumData._embedded.songs.some(inAlbum => inAlbum.songName === curentSong.songName);
+            setIsInAlbum(isSongInAlbum);
+         } catch (error) {
+            console.log('Error:', error);
+            setIsInAlbum(false);
+         }
+      };
+
+      checkIsInAlbum();
+   }, [isInAlbum]);
+
+
+   const addToAlbum = async () => {
+      if (!isInAlbum) {
+         const songToAdd = curentSong;
+         try {
+            await fetch(`http://${ipv4}:8080/api/add-to-my-album`, {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+               body: JSON.stringify(songToAdd),
+            });
+            setIsInAlbum(true);
+         } catch (error) {
+            console.log("");
+         }
+      } else {
+         alert("Bài hát đã có trong album")
+      }
+
+   }
+   const deleteToAlbum = async () => {
+      const songToDelete = curentSong;
+      try {
+         await fetch(`http://${ipv4}:8080/api/delete-to-album/${songToDelete.id}`, {
+            method: 'DELETE',
+            headers: {
+               'Content-Type': 'application/json',
+            }
+         });
+         setIsInAlbum(false);
+      } catch (error) {
+         console.error('Error removing song from the album:', error);
+      }
+   }
    useEffect(() => {
       return sound
          ? () => {
@@ -64,13 +118,10 @@ const SongDetail = ({ route }) => {
       const currentIndex = playlist.findIndex((item) => item.id === song.id);
       const nextIndex = (currentIndex + 1) % playlist.length;
       const nextSong = playlist[nextIndex];
-
-      // Unload current sound if it exists
+      setCurentSong(nextSong);
       if (sound) {
          await sound.unloadAsync();
       }
-
-      // Load and play the next song
       const { sound: newSound } = await Audio.Sound.createAsync(
          { uri: nextSong.songData },
          { shouldPlay: true }
@@ -83,6 +134,7 @@ const SongDetail = ({ route }) => {
       const currentIndex = playlist.findIndex((item) => item.id === song.id);
       const previousIndex = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
       const previousSong = playlist[previousIndex];
+      setCurentSong(previousSong);
 
       if (sound) {
          await sound.unloadAsync();
@@ -96,7 +148,6 @@ const SongDetail = ({ route }) => {
       setIsPlaying(true);
       animateImage(true);
    };
-
    const animateImage = (shouldRotate, reset = false) => {
       if (shouldRotate) {
          const animationConfig = {
@@ -162,7 +213,7 @@ const SongDetail = ({ route }) => {
                         alignItems: "center",
                         marginLeft: 40,
                      }}
-                     source={{ uri: song.image }}
+                     source={{ uri: curentSong.image }}
                   />
                   <View
                      style={{
@@ -175,16 +226,20 @@ const SongDetail = ({ route }) => {
                         <Text
                            style={{ fontSize: 24, fontWeight: "bold", color: "white" }}
                         >
-                           {song.songName}
+                           {curentSong.songName}
                         </Text>
                         <Text style={{ color: "#D3D3D3", marginTop: 4 }}>
-                           {song.author}
+                           {curentSong.author}
                         </Text>
                      </View>
                      <View style={{ flexDirection: "row", gap: 16 }}>
-                        <Pressable>
-                           <Feather name="heart" size={24} color="white" />
-                        </Pressable>
+                        <TouchableOpacity onPress={
+                           addToAlbum
+                        }>
+                           {
+                              isInAlbum ? (<FontAwesome name="heart" size={24} color="white" />) : (<Feather name="heart" size={24} color="white" />)
+                           }
+                        </TouchableOpacity>
                      </View>
                   </View>
                   <View style={{ marginTop: 10 }}>

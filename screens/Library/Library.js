@@ -5,6 +5,7 @@ import HeaderLibary from './components/header';
 import OptionLibrary from './components/OptionLibrary';
 import Content from './components/Content';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View } from 'react-native-animatable';
 
 const LibraryScreen = () => {
    const [user, setUser] = useState(null);
@@ -25,17 +26,19 @@ const LibraryScreen = () => {
 
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1, paddingBottom: 60 }}>
-         {user ? (
+         <SafeAreaView>
             <ScrollView>
-               <SafeAreaView style={{ marginTop: 10, marginRight: 10, marginLeft: 10 }}>
-                  <HeaderLibary user={user} />
-                  <OptionLibrary />
-                  <Content />
-               </SafeAreaView>
+               {user ? (
+                  <View style={{ marginTop: 10, marginRight: 10, marginLeft: 10 }}>
+                     <HeaderLibary user={user} />
+                     <OptionLibrary />
+                     <Content />
+                  </View>
+               ) : (
+                  <Text>Đang tải...</Text>
+               )}
             </ScrollView>
-         ) : (
-            <Text>Đang tải...</Text>
-         )}
+         </SafeAreaView>
       </LinearGradient>
    );
 }

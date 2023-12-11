@@ -11,6 +11,7 @@ import { SafeAreaView, ScrollView, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import TrendingPlaylists from "./components/TrendingPlaylists";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View } from "react-native-animatable";
 
 const HomeScreen = () => {
    const [user, setUser] = useState(null);
@@ -32,7 +33,7 @@ const HomeScreen = () => {
    return (
       <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1, paddingBottom: 60 }}>
          <ScrollView>
-            <SafeAreaView style={{ marginTop: 10, marginRight: 10, marginLeft: 10 }}>
+            <View style={{ marginTop: 10, marginRight: 10, marginLeft: 10 }}>
                {user ? (
                   <>
                      <HeaderNav user={user} />
@@ -48,7 +49,7 @@ const HomeScreen = () => {
                ) : (
                   <Text>Đang tải...</Text>
                )}
-            </SafeAreaView>
+            </View>
          </ScrollView>
       </LinearGradient>
    );
