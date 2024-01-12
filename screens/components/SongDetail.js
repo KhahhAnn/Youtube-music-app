@@ -48,6 +48,7 @@ const SongDetail = ({ route }) => {
                },
                body: JSON.stringify(songToAdd),
             });
+            console.log(curentSong);
             setIsInAlbum(true);
          } catch (error) {
             console.log("");
@@ -55,22 +56,28 @@ const SongDetail = ({ route }) => {
       } else {
          alert("Bài hát đã có trong album")
       }
-
    }
-   const deleteToAlbum = async () => {
-      const songToDelete = curentSong;
-      try {
-         await fetch(`http://${ipv4}:8080/api/delete-to-album/${songToDelete.id}`, {
-            method: 'DELETE',
-            headers: {
-               'Content-Type': 'application/json',
-            }
-         });
-         setIsInAlbum(false);
-      } catch (error) {
-         console.error('Error removing song from the album:', error);
+   const unloadCurrentSound = async () => {
+      if (sound) {
+         await sound.unloadAsync();
       }
-   }
+   };
+   const playNextSong = async () => {
+      const currentIndex = playlist.findIndex((item) => item.id === song.id);
+      const nextIndex = (currentIndex + 1) % playlist.length;
+      const nextSong = playlist[nextIndex];
+      setCurentSong(nextSong);
+
+      await unloadCurrentSound();
+
+      const { sound: newSound } = await Audio.Sound.createAsync(
+         { uri: nextSong.songData },
+         { shouldPlay: true }
+      );
+      setSound(newSound);
+      setIsPlaying(true);
+      animateImage(true);
+   };
    useEffect(() => {
       return sound
          ? () => {
@@ -88,11 +95,26 @@ const SongDetail = ({ route }) => {
          }
       };
 
+      const setupPlaybackStatusListener = () => {
+         if (sound) {
+            sound.setOnPlaybackStatusUpdate((status) => {
+               if (status.didJustFinish) {
+                  playNextSong();
+               }
+            });
+         }
+      };
+
       const positionInterval = setInterval(updatePosition, 1000);
+      setupPlaybackStatusListener();
 
-      return () => clearInterval(positionInterval);
+      return () => {
+         clearInterval(positionInterval);
+         if (sound) {
+            sound.setOnPlaybackStatusUpdate(null);
+         }
+      };
    }, [sound]);
-
    const playSound = async () => {
       console.log("play");
       if (sound) {
@@ -114,31 +136,13 @@ const SongDetail = ({ route }) => {
          animateImage(true);
       }
    };
-   const playNextSong = async () => {
-      const currentIndex = playlist.findIndex((item) => item.id === song.id);
-      const nextIndex = (currentIndex + 1) % playlist.length;
-      const nextSong = playlist[nextIndex];
-      setCurentSong(nextSong);
-      if (sound) {
-         await sound.unloadAsync();
-      }
-      const { sound: newSound } = await Audio.Sound.createAsync(
-         { uri: nextSong.songData },
-         { shouldPlay: true }
-      );
-      setSound(newSound);
-      setIsPlaying(true);
-      animateImage(true);
-   };
    const playPreviousSong = async () => {
       const currentIndex = playlist.findIndex((item) => item.id === song.id);
       const previousIndex = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
       const previousSong = playlist[previousIndex];
       setCurentSong(previousSong);
 
-      if (sound) {
-         await sound.unloadAsync();
-      }
+      await unloadCurrentSound();
 
       const { sound: newSound } = await Audio.Sound.createAsync(
          { uri: previousSong.songData },
@@ -148,6 +152,40 @@ const SongDetail = ({ route }) => {
       setIsPlaying(true);
       animateImage(true);
    };
+   // const playNextSong = async () => {
+   //    const currentIndex = playlist.findIndex((item) => item.id === song.id);
+   //    const nextIndex = (currentIndex + 1) % playlist.length;
+   //    const nextSong = playlist[nextIndex];
+   //    setCurentSong(nextSong);
+   //    if (sound) {
+   //       await sound.unloadAsync();
+   //    }
+   //    const { sound: newSound } = await Audio.Sound.createAsync(
+   //       { uri: nextSong.songData },
+   //       { shouldPlay: true }
+   //    );
+   //    setSound(newSound);
+   //    setIsPlaying(true);
+   //    animateImage(true);
+   // };
+   // const playPreviousSong = async () => {
+   //    const currentIndex = playlist.findIndex((item) => item.id === song.id);
+   //    const previousIndex = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
+   //    const previousSong = playlist[previousIndex];
+   //    setCurentSong(previousSong);
+
+   //    if (sound) {
+   //       await sound.unloadAsync();
+   //    }
+
+   //    const { sound: newSound } = await Audio.Sound.createAsync(
+   //       { uri: previousSong.songData },
+   //       { shouldPlay: true }
+   //    );
+   //    setSound(newSound);
+   //    setIsPlaying(true);
+   //    animateImage(true);
+   // };
    const animateImage = (shouldRotate, reset = false) => {
       if (shouldRotate) {
          const animationConfig = {
